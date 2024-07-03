@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow');
+
+body {
+    font-family: "Barlow";
+    margin: 0;
+}
+
+/* #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+} */
