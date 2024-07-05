@@ -17,3 +17,5 @@ const UserSchema = new Schema({
         {type: Schema.Types.ObjectId, ref: "Chats", required: false }
     ]
 })
+
+module.exports = mongoose.model("User", UserSchema);
