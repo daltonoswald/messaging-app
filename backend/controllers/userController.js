@@ -13,12 +13,12 @@ exports.log_in = asyncHandler(async (req, res, next) => {
         res.status(401).json({ message: "Username not found." });
     }
     try {
-        bcryptjs.compare(req.body.password), user.password, (err, isMatch) => {
+        bcryptjs.compare(req.body.password, user.password, (err, isMatch) => {
             if (err) return next(err);
 
             const options = {};
             options.expiresIn = 1 * 24 * 60 * 60;
-            const token = jwt.json({ user }, process.env.TOKEN_KEY || TOKEN_KEY, options);
+            const token = jwt.sign({ user }, process.env.TOKEN_KEY || TOKEN_KEY, options);
 
             if (!isMatch) {
                 res.status(401).json({ message: "Incorrect password." });
@@ -26,7 +26,7 @@ exports.log_in = asyncHandler(async (req, res, next) => {
                 console.log(user.username);
                 res.json({ message: 'user logged in successfully', token, user });
             }
-        }
+        });
     } catch (error) {
         return res.status(500).json({ message: "Internal Server Error" });
     }

@@ -7,7 +7,8 @@ router.get("/", (req, res) => {
     res.json({ name: "frodo" });
 });
 
-router.post('/log-in', alreadyLoggedIn, user_controller.log_in);
+// router.post('/log-in', alreadyLoggedIn, user_controller.log_in);
+router.post('/log-in', user_controller.log_in);
 
 router.post('/sign-up', alreadyLoggedIn, user_controller.sign_up)
 
