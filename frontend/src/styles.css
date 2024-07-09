@@ -5,6 +5,16 @@ body {
     margin: 0;
 }
 
+a:link {
+    text-decoration: underline;
+}
+
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+
 /* #root {
     min-height: 100vh;
     display: flex;

@@ -1,12 +1,22 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import { useNavigate } from 'react-router-dom'
+import Nav from './nav/Nav'
 
 function Homepage() {
   const [count, setCount] = useState(0)
+  const navigate = useNavigate();
+
+  function logout() {
+    localStorage.removeItem('authenticationToken');
+    localStorage.removeItem('username');
+    navigate('/');
+  }
 
   return (
     <>
+      <Nav />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -27,6 +37,7 @@ function Homepage() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <button onClick={logout}>Log Out</button>
     </>
   )
 }
