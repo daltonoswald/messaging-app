@@ -2,7 +2,7 @@ const User = require('../models/user');
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const bcryptjs = require('bcryptjs');
-const { body, validationResult } = require('express-validator');
+const { body, check, validationResult } = require('express-validator');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const LocalStrategy = require('passport-local').Strategy;
@@ -67,10 +67,15 @@ exports.sign_up = [
         .trim()
         .custom((value, { req }) => {
             if (value !== req.body.password) {
+                console.log("does not match")
                 return false
             }
+            console.log("matches")
             return true
         }),
+    body('profile_picture', 'Profile image is required')
+        .trim()
+        .escape(),
     body('bio')
         .trim()
         .escape(),
@@ -78,6 +83,9 @@ exports.sign_up = [
     async(req, res, next) => {
         try {
             const errors = validationResult(req);
+            if (req.body.password !== req.body.confirm_password) {
+                res.status(409).json({ message: "Passwords do not match." });
+            }
 
             const user = new User({
                 first_name: req.body.first_name,
