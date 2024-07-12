@@ -12,4 +12,6 @@ router.post('/log-in', user_controller.log_in);
 
 router.post('/sign-up', alreadyLoggedIn, user_controller.sign_up)
 
+router.get('/user-list', user_controller.user_list);
+
 module.exports = router;

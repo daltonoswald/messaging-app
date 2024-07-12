@@ -118,3 +118,12 @@ exports.sign_up = [
         }
     }
 ]
+
+exports.user_list = asyncHandler(async (req, res, next) => {
+    const usersUsername = req.headers.username
+    console.log(usersUsername);
+    // console.log(req.headers.username);
+    // const allUsers = await User.find({ username: { $ne: usersUsername } }).select(`-password -friends -chats`).populate('username').exec();
+    const allUsers = await User.find({ username: { $ne: usersUsername } }, "username, profile_picture").populate('username').exec();
+    res.json(allUsers);
+})
