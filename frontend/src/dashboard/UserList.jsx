@@ -69,12 +69,15 @@ export default function UserList() {
     useEffect(() => {
         const allUsers = async () => {
             const localUrl = `http://localhost:3000/users/user-list`;
+
+            const token = localStorage.getItem('authenticationToken')
             try {
                 const response = await fetch(localUrl, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         "Username": `${localStorage.getItem('username')}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 })
                 if (response.ok) {
@@ -84,9 +87,13 @@ export default function UserList() {
                     setIsLoading(false);
                 } else {
                     console.error(error);
+                    setIsLoading(false);
+                    setError(true);
                 }
             } catch (error) {
                 console.error(`Errors: ${error}`);
+                setIsLoading(false);
+                setError(error);
             }
         }
         allUsers();
@@ -107,9 +114,9 @@ export default function UserList() {
         <>
             <div className="user-list">
                 {userList.map((user) => (
-                    <div className="user" key={user.id}>
+                    <div className="user" key={user._id}>
                         <Link
-                            to={`/messages/${user._id}`}
+                            to={`/profile/${user._id}`}
                             key={user._id}
                             state={{ user }}
                         >

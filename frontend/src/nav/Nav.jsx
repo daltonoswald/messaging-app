@@ -15,7 +15,7 @@ export default function Nav() {
         <div className='nav'>
             <div className='nav-left'>
                 <Link to='/'>
-                    <p className='nav-title'>Chit<span className='nav-title-right'>Chat</span></p>
+                    <p className='nav-title'>&#91;Chit<span className='nav-title-right'>Chat&#93;</span></p>
                 </Link>
             </div>
             <div className='nav-right'>

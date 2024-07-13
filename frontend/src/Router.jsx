@@ -3,6 +3,7 @@ import Homepage from './Homepage.jsx';
 import LogIn from './LogIn.jsx';
 import SignUp from './signup/SignUp.jsx';
 import Dashboard from './dashboard/Dashboard.jsx';
+import Profile from './profile/Profile.jsx';
 
 export default function Router() {
 
@@ -22,6 +23,10 @@ export default function Router() {
         {
             path: '/dashboard',
             element: <Dashboard />
+        },
+        {
+            path: '/profile/:postid',
+            element: <Profile />
         }
     ]);
     return <RouterProvider router={router} />
