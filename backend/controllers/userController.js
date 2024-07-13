@@ -6,6 +6,7 @@ const { body, check, validationResult } = require('express-validator');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const LocalStrategy = require('passport-local').Strategy;
+const { generateToken, verifyToken } = require('../middleware/middleware');
 
 exports.log_in = asyncHandler(async (req, res, next) => {
     const user = await User.findOne({ username: req.body.username })
@@ -120,10 +121,23 @@ exports.sign_up = [
 ]
 
 exports.user_list = asyncHandler(async (req, res, next) => {
-    const usersUsername = req.headers.username
-    console.log(usersUsername);
-    // console.log(req.headers.username);
-    // const allUsers = await User.find({ username: { $ne: usersUsername } }).select(`-password -friends -chats`).populate('username').exec();
-    const allUsers = await User.find({ username: { $ne: usersUsername } }, "username, profile_picture").populate('username').exec();
+    const token = req.headers.authorization.split(' ')[1]
+    const authorizedUser = verifyToken(token);
+    console.log(authorizedUser.user.username);
+
+    // const allUsers = await User.find({}, "username, profile_picture").populate('username').exec();
+    const allUsers = await User.find({ username: { $ne: authorizedUser.user.username } }, "username, profile_picture, _id").populate('username').exec();
     res.json(allUsers);
+})
+
+exports.profile = asyncHandler(async (req, res, next) => {
+        const profile = await User.findById(req.params.userid).populate('username').select( "-password -chats" ).exec();
+
+        if (profile === null) {
+            const err = new Error("User not found");
+            err.status = 400;
+            return next(err)
+        } else {
+            res.json(profile);
+        }
 })
