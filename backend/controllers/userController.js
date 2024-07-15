@@ -131,7 +131,7 @@ exports.user_list = asyncHandler(async (req, res, next) => {
 })
 
 exports.profile = asyncHandler(async (req, res, next) => {
-        const profile = await User.findById(req.params.userid).populate('username').select( "-password -chats" ).exec();
+        const profile = await User.findById(req.params.userid).populate('username friends').select( "-password -chats" ).exec();
 
         if (profile === null) {
             const err = new Error("User not found");
@@ -140,4 +140,31 @@ exports.profile = asyncHandler(async (req, res, next) => {
         } else {
             res.json(profile);
         }
+})
+
+exports.add_friend = asyncHandler(async (req, res ,next) => {
+    const errors = validationResult(req);
+    const token = req.headers.authorization.split(' ')[1];
+    const authorizedUser = verifyToken(token);
+    const tokenUserId = authorizedUser.user._id;
+    const newFriend = await User.findById(req.params.userid);
+    console.log(newFriend);
+    console.log(tokenUserId);
+
+    if (!errors.isEmpty()) {
+        const errorsMessages = errors.array().map((error) => error.msg);
+        res.json({ error: errorsMessages})
+    } else {
+        const alreadyFriends = await User.findOne({
+            _id: tokenUserId
+        })
+        console.log(alreadyFriends.friends.includes(newFriend._id));
+        if (alreadyFriends.friends.includes(newFriend._id)) {
+            res.status(409).json({ message: "User is already your friend." });
+        } else {
+            let result = await User.findByIdAndUpdate(tokenUserId,
+                { $push: {"friends": newFriend._id }}, 
+                { upsert: true, new: true })
+        }
+    }
 })

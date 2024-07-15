@@ -16,4 +16,6 @@ router.get('/user-list', user_controller.user_list);
 
 router.get('/profile/:userid', user_controller.profile);
 
+router.put('/add-friend/:userid', user_controller.add_friend);
+
 module.exports = router;
