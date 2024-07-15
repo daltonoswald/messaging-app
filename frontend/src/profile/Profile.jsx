@@ -27,6 +27,7 @@ export default function Profile() {
                 })
                 if (response.ok) {
                     const userData = await response.json();
+                    console.log(userData);
                     setUserData(userData)
                     setIsLoading(false);
                 } else {
@@ -42,6 +43,39 @@ export default function Profile() {
         }
         getUserProfile();
     }, [token])
+
+    const handleAddFriend = async (event) => {
+        event.preventDefault();
+        console.log(user._id);
+        const stringedId = (user._id).toString();
+        const localUrl = `http://localhost:3000/users/add-friend/${user._id}`;
+        const friendData = {
+            text: stringedId
+        }
+        console.log(friendData);
+
+        try {
+            const token = localStorage.getItem('authenticationToken')
+            const response = await fetch(localUrl, 
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(friendData)
+            });
+            const data = await response.json();
+            if (response.ok) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error("Error requesting:", error);
+            console.log(error);
+        }
+
+        console.log('hi');
+    }
 
     if (isLoading) return (
         <>
@@ -61,6 +95,19 @@ export default function Profile() {
             <div className="content">
                <h1>{userData.username}</h1> 
                <h3>{userData.first_name} {userData.last_name}</h3>
+               {userData.friends.map((friend) => (
+                    <div className="friend" key={friend._id}>
+                        {/* <Link
+                            to={`/profile/${user._id}`}
+                            key={user._id}
+                            state={{ user }}
+                        > */}
+                            {/* <img src={friend.profile_picture}></img> */}
+                            <p>{friend.username}</p>
+                        {/* </Link> */}
+                    </div>
+                ))}
+               <button onClick={handleAddFriend}>Add Friend</button>
             </div>
         </>
     )
