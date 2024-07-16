@@ -4,6 +4,7 @@ import LogIn from './LogIn.jsx';
 import SignUp from './signup/SignUp.jsx';
 import Dashboard from './dashboard/Dashboard.jsx';
 import Profile from './profile/Profile.jsx';
+import MyProfile from './profile/MyProfile.jsx';
 
 export default function Router() {
 
@@ -27,6 +28,10 @@ export default function Router() {
         {
             path: '/profile/:postid',
             element: <Profile />
+        },
+        {
+            path: `/my-profile/`,
+            element: <MyProfile />
         }
     ]);
     return <RouterProvider router={router} />

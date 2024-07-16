@@ -2,18 +2,21 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Nav from '../nav/Nav';
 
-export default function Profile() {
+export default function MyProfile() {
     const navigate = useNavigate();
     const location = useLocation();
-    const user = location.state?.user;
+    const loggedInUser = location.state?.loggedInUser;
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userData, setUserData] = useState(null);
 
+    console.log(loggedInUser);
+
     useEffect(() => {
         const getUserProfile = async () => {
-            const localUrl = `http://localhost:3000/users/profile/${user._id}`;
+            const localUrl = `http://localhost:3000/users/profile/${loggedInUser._id}`;
+            console.log(loggedInUser);
 
             const token = localStorage.getItem('authenticationToken')
             try {
@@ -27,7 +30,6 @@ export default function Profile() {
                 })
                 if (response.ok) {
                     const userData = await response.json();
-                    console.log(userData);
                     setUserData(userData)
                     setIsLoading(false);
                 } else {
@@ -44,38 +46,6 @@ export default function Profile() {
         getUserProfile();
     }, [token])
 
-    const handleAddFriend = async (event) => {
-        event.preventDefault();
-        const stringedId = (user._id).toString();
-        const localUrl = `http://localhost:3000/users/add-friend/${user._id}`;
-        const friendData = {
-            text: stringedId
-        }
-        console.log(friendData);
-
-        try {
-            const token = localStorage.getItem('authenticationToken')
-            const response = await fetch(localUrl, 
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(friendData)
-            });
-            const data = await response.json();
-            if (response.ok) {
-                window.location.reload();
-            }
-        } catch (error) {
-            console.error("Error requesting:", error);
-            console.log(error);
-        }
-
-        console.log('hi');
-    }
-
     if (isLoading) return (
         <>
             <p>Loading profile</p>
@@ -86,7 +56,6 @@ export default function Profile() {
             <p>Error, please try again later</p>
         </>
     )
-
 
     return (
         <>
@@ -110,12 +79,12 @@ export default function Profile() {
                ))}
                </>
                )}
-               {(userData.friends) && (
+               {(!userData.friends) && (
                 <>
                     <p>No friends yet...</p>
                 </>
                )}
-               <button onClick={handleAddFriend}>Add Friend</button>
+               {/* <button onClick={handleAddFriend}>Add Friend</button> */}
             </div>
         </>
     )

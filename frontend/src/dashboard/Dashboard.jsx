@@ -4,6 +4,13 @@ import Nav from '../nav/Nav';
 import UserList from "./UserList";
 
 export default function Dashboard() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!localStorage.getItem('authenticationToken')) {
+            console.log("");
+            navigate('/log-in');
+        }
+    })
 
     return (
         <>
