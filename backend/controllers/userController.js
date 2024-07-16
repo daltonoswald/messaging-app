@@ -130,6 +130,14 @@ exports.user_list = asyncHandler(async (req, res, next) => {
     res.json(allUsers);
 })
 
+exports.my_profile = asyncHandler(async (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const authorizedUser = verifyToken(token);
+    console.log(authorizedUser.user.username);
+    const myProfile = await User.findOne({ username: authorizedUser.user.username }).populate('username friends').select('-password').exec();
+    res.json(myProfile);
+})
+
 exports.profile = asyncHandler(async (req, res, next) => {
         const profile = await User.findById(req.params.userid).populate('username friends').select( "-password -chats" ).exec();
 
