@@ -1,0 +1,83 @@
+.log-in-left,
+.log-in-right {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.log-in-left {
+    width: 60vw;
+    background-color: rgb(255, 246, 223);
+    border-right: 1px solid black;
+}
+
+.log-in-right {
+    width: 40vw;
+    background-color: goldenrod;
+    border-left: 1px solid black;
+}
+
+.log-in-left-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: goldenrod;
+    padding: 10vh 3vh;
+    border-radius: 50px;
+    border: 3px solid black;
+    box-shadow: 2px 2px 4px black;
+}
+
+.welcome-back {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.log-in-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.log-in-form > .submit-button {
+    background-color: rgb(255, 246, 223) !important;
+}
+
+.new-here {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.sign-up-text {
+    margin: 32px 0px;
+    font-size: 24px;
+}
+
+.link-sign-up,
+.log-in-form > .submit-button {
+    border-radius: 25px;
+    border: 3px solid black;
+    padding: 16px 52px;
+    background-color: goldenrod;
+    text-shadow: 0 0 BLACK;
+    box-shadow: 2px 2px 4px black;
+
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.log-in-right-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(255, 246, 223);
+    padding: 10vh 3vh;
+    border-radius: 50px;
+    border: 3px solid black;
+    box-shadow: 2px 2px 4px black;
+}
