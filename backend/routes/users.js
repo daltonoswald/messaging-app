@@ -20,4 +20,6 @@ router.get('/profile/:userid', user_controller.profile);
 
 router.put('/add-friend/:userid', user_controller.add_friend);
 
+router.put('/remove-friend/:userid', user_controller.remove_friend);
+
 module.exports = router;

@@ -150,7 +150,7 @@ exports.profile = asyncHandler(async (req, res, next) => {
         }
 })
 
-exports.add_friend = asyncHandler(async (req, res ,next) => {
+exports.add_friend = asyncHandler(async (req, res , next) => {
     const errors = validationResult(req);
     const token = req.headers.authorization.split(' ')[1];
     const authorizedUser = verifyToken(token);
@@ -174,5 +174,24 @@ exports.add_friend = asyncHandler(async (req, res ,next) => {
                 { $push: {"friends": newFriend._id }}, 
                 { upsert: true, new: true })
         }
+    }
+})
+
+exports.remove_friend = asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const token = req.headers.authorization.split(' ')[1];
+    const authorizedUser = verifyToken(token);
+    const tokenUserId = authorizedUser.user._id;
+    const removedFriend = await User.findById(req.params.userid);
+    console.log(removedFriend);
+    
+    if (!errors.isEmpty()) {
+        const errorsMessages = errors.array().map((error) => error.msg);
+        res.json({ error: errorsMessages })
+    } else {
+        const result = await User.findByIdAndUpdate(tokenUserId,
+            { $pull: { "friends": removedFriend._id }},
+            { upsert: true, new: true });
+            res.json( {message: "Removed friend"} )
     }
 })
