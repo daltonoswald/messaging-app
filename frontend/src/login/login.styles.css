@@ -1,3 +1,11 @@
+.log-in-hero {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
 .log-in-left,
 .log-in-right {
     height: 100%;
@@ -8,13 +16,13 @@
 }
 
 .log-in-left {
-    width: 60vw;
+    width: 60%;
     background-color: rgb(255, 246, 223);
     border-right: 1px solid black;
 }
 
 .log-in-right {
-    width: 40vw;
+    width: 40%;
     background-color: goldenrod;
     border-left: 1px solid black;
 }

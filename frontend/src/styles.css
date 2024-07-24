@@ -4,10 +4,11 @@ body {
     font-family: "Barlow";
     margin: 0;
     height: 100vh;
+    overflow: hidden;
 }
 
 #root {
-    height: 95%;
+    height: 100%;
 }
 
 a:link {
@@ -22,9 +23,9 @@ a:visited {
 
 .content {
     height: 90%;
-    width: 100vw;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 

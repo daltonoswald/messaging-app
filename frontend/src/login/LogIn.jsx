@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Nav from '../nav/Nav';
 import SignUp from '../signup/SignUp';
 import './login.styles.css';
+import Footer from '../footer/Footer';
 
 export default function LogIn() {
     const navigate = useNavigate();
@@ -57,41 +58,44 @@ export default function LogIn() {
         <>
             <Nav />
             <div className='content'>
-                <div className='log-in-left'>
-                        <div className='log-in-left-content'>
-                        <div className='welcome-back'>Welcome Back</div>
-                        <form onSubmit={handleSubmit} className='log-in-form'>
-                            <label htmlFor='username'>Username</label>
-                            <input
-                                type='text'
-                                id='username'
-                                required
-                            />
-                            <label htmlFor='password'>Password</label>
-                            <input
-                                type='password'
-                                id='password'
-                                name='password'
-                                minLength={8}
-                                required
-                            />
-                            <button className='submit-button' type='submit'>Log in</button>
-                        </form>
-                        {message && (
-                        <div className='log-in-message'>
-                            <p>{message}</p>
+                <div className='log-in-hero'>
+                    <div className='log-in-left'>
+                            <div className='log-in-left-content'>
+                            <div className='welcome-back'>Welcome Back</div>
+                            <form onSubmit={handleSubmit} className='log-in-form'>
+                                <label htmlFor='username'>Username</label>
+                                <input
+                                    type='text'
+                                    id='username'
+                                    required
+                                />
+                                <label htmlFor='password'>Password</label>
+                                <input
+                                    type='password'
+                                    id='password'
+                                    name='password'
+                                    minLength={8}
+                                    required
+                                />
+                                <button className='submit-button' type='submit'>Log in</button>
+                            </form>
+                            {message && (
+                            <div className='log-in-message'>
+                                <p>{message}</p>
+                            </div>
+                            )}
                         </div>
-                        )}
                     </div>
-                </div>
-                <div className='log-in-right'>
-                        <div className='log-in-right-content'>
-                        <div className='new-here'>New Here?</div>
-                        <div className='sign-up-text'>Sign up now and join the community!</div>
-                        <Link className='link-sign-up' to='/sign-up'>Sign up</Link>
+                    <div className='log-in-right'>
+                            <div className='log-in-right-content'>
+                            <div className='new-here'>New Here?</div>
+                            <div className='sign-up-text'>Sign up now and join the community!</div>
+                            <Link className='link-sign-up' to='/sign-up'>Sign up</Link>
+                        </div>
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 

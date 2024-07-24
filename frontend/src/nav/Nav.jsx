@@ -32,7 +32,7 @@ export default function Nav() {
                     setLoggedInUser(myData)
                     setIsLoading(false);
                     localStorage.setItem("username", myData.username);
-                    localStorage.setItem('myId',)
+                    localStorage.setItem('myId', myData._id);
                 } else {
                     console.error(error);
                     setIsLoading(false);

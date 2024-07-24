@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Nav from '../nav/Nav';
+import Footer from "../footer/Footer";
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -72,8 +73,6 @@ export default function Profile() {
             console.error("Error requesting:", error);
             console.log(error);
         }
-
-        console.log('hi');
     }
 
     if (isLoading) return (
@@ -117,6 +116,7 @@ export default function Profile() {
                )}
                <button onClick={handleAddFriend}>Add Friend</button>
             </div>
+            <Footer />
         </>
     )
 }
