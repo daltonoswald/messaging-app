@@ -127,6 +127,10 @@ export default function MyProfile() {
                     </>
                 )}
                 {/* <button onClick={handleAddFriend}>Add Friend</button> */}
+                <div className="my-chats">
+                    <h3>My Chats</h3>
+                    
+                </div>
                 </div>
             </div>
             <Footer />

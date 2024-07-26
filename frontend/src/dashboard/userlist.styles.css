@@ -1,0 +1,10 @@
+.user {
+    background-color: rgb(255, 246, 223);
+    border: 2px solid goldenrod;
+    padding: 4px;
+}
+
+p {
+    margin: 0;
+    padding: 4px;
+}

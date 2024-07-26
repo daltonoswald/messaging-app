@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import './userlist.styles.css'
 
 
 export default function UserList() {
@@ -122,7 +123,15 @@ export default function UserList() {
                         >
                             <img src={user.profile_picture}></img>
                             <p>{user.username}</p>
+                            <p>{user.first_name} {user.last_name}</p>
+                            <p>{user.bio}</p>
                         </Link>
+                        <Link 
+                            to={`/`}
+                            state={{ user }}
+                            >
+                                Chat
+                            </Link>
                     </div>
                 ))}
             </div>
