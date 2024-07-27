@@ -126,7 +126,7 @@ exports.user_list = asyncHandler(async (req, res, next) => {
     console.log(authorizedUser.user.username);
 
     // const allUsers = await User.find({}, "username, profile_picture").populate('username').exec();
-    const allUsers = await User.find({ username: { $ne: authorizedUser.user.username } }, "username, profile_picture, _id").populate('username').exec();
+    const allUsers = await User.find({ username: { $ne: authorizedUser.user.username } }).select( "-password -chats -friends").populate('username').exec();
     res.json(allUsers);
 })
 
