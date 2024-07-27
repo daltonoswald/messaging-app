@@ -6,7 +6,7 @@ import Footer from "../footer/Footer";
 export default function Profile() {
     const navigate = useNavigate();
     const location = useLocation();
-    const user = location.state?.user;
+    const user = location.state?.user || location.state?.friend;
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
@@ -75,6 +75,17 @@ export default function Profile() {
         }
     }
 
+    const handleNewMessage = async (event) => {
+        event.preventDefault();
+        const receiver = (user._id).toString();
+        const messageData = {
+            receiver: receiver,
+            content: event.target.content.value
+        }
+        console.log(messageData);
+
+    }
+
     if (isLoading) return (
         <>
             <p>Loading profile</p>
@@ -91,30 +102,54 @@ export default function Profile() {
         <>
             <Nav />
             <div className="content">
-               <h1>{userData.username}</h1> 
-               <h3>{userData.first_name} {userData.last_name}</h3>
-               {userData.friends && (
-                <>
-               {userData.friends.map((friend) => (
-                <div className="friend" key={friend._id}>
-                    {/* <Link
-                        to={`/profile/${user._id}`}
-                        key={user._id}
-                        state={{ user }}
-                        > */}
-                            {/* <img src={friend.profile_picture}></img> */}
-                            <p>{friend.username}</p>
-                    {/* </Link> */}
+                <div className="profile-info">
+                    <div className="profile-info-top">
+                        <h1>{userData.username}</h1>
+                        <button onClick={handleAddFriend}>Add Friend</button>
+                    </div>
+                    <div className="profile-info-middle">
+                        <h3>{userData.first_name} {userData.last_name}</h3>
+                    </div>
+                    <div className="profile-info-bottom">
+                        <div className="profile-info-bottom-header">
+                            {userData.username}'s friends
+                        </div>
+                    {userData.friends && (
+                        <>
+                    {userData.friends.map((friend) => (
+                        <div className="friend" key={friend._id}>
+                            {/* <Link
+                                to={`/profile/${user._id}`}
+                                key={user._id}
+                                state={{ user }}
+                                > */}
+                                    {/* <img src={friend.profile_picture}></img> */}
+                                    <p>{friend.username}</p>
+                            {/* </Link> */}
+                        </div>
+                    ))}
+                    </>
+                    )}
+                    {(userData.friends) && (
+                        <>
+                            <p>No friends yet...</p>
+                        </>
+                    )}
+                    </div>
                 </div>
-               ))}
-               </>
-               )}
-               {(userData.friends) && (
-                <>
-                    <p>No friends yet...</p>
-                </>
-               )}
-               <button onClick={handleAddFriend}>Add Friend</button>
+                <div className="chatbox">
+                    <div className="new-message">
+                        <form onSubmit={handleNewMessage} className="new-message-form">
+                            <label htmlFor='content'>Message</label>
+                            <input
+                                type='text'
+                                id='content'
+                                required
+                            />
+                            <button className="send-message" type='submit'>Send</button>
+                        </form>
+                    </div>
+                </div>
             </div>
             <Footer />
         </>

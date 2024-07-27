@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import Nav from '../nav/Nav';
 import './myProfile.styles.css'
 import Footer from "../footer/Footer";
@@ -13,12 +13,12 @@ export default function MyProfile() {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userData, setUserData] = useState(null);
 
-    console.log(loggedInUser);
+    // console.log(loggedInUser);
 
     useEffect(() => {
         const getUserProfile = async () => {
-            const localUrl = `http://localhost:3000/users/profile/${loggedInUser._id}`;
-            console.log(loggedInUser);
+            // const localUrl = `http://localhost:3000/users/profile/${loggedInUser._id}`;
+            const localUrl = `http://localhost:3000/users/my-profile`;
 
             const token = localStorage.getItem('authenticationToken')
             try {
@@ -33,6 +33,7 @@ export default function MyProfile() {
                 if (response.ok) {
                     const userData = await response.json();
                     setUserData(userData)
+                    console.log(userData);
                     setIsLoading(false);
                 } else {
                     console.error(error);
@@ -101,35 +102,56 @@ export default function MyProfile() {
                         <p>{userData.bio}</p>
                     </div>
 
+                <div className="friends-list">
                 {userData.friends && (
                     <>
-                    <div className="friends-list">
+                    {/* <div className="friends-list"> */}
                         <h3>My Friends</h3>
                     {userData.friends.map((friend) => (
                         <div className="friend" key={friend._id}>
-                            {/* <Link
-                                to={`/profile/${user._id}`}
-                                key={user._id}
-                                state={{ user }}
-                                > */}
+                            <Link
+                                to={`/profile/${friend._id}`}
+                                key={friend._id}
+                                state={{ friend }}
+                                >
                                     {/* <img src={friend.profile_picture}></img> */}
                                     <p>{friend.username}</p>
                                     <button id={friend._id} onClick={handleRemoveFriend}>Remove Friend</button>
-                            {/* </Link> */}
+                            </Link>
                         </div>
                     ))}
-                </div>
+                {/* </div> */}
                 </>
                 )}
-                {(!userData.friends) && (
+                {(userData.friends.length === 0) && (
                     <>
                         <p>No friends yet...</p>
                     </>
                 )}
+                </div>
                 {/* <button onClick={handleAddFriend}>Add Friend</button> */}
                 <div className="my-chats">
-                    <h3>My Chats</h3>
-                    
+                {userData.chats && (
+                    <>
+                        <h3>My Chats</h3>
+                        {userData.chats.map((chat) => (
+                            <div className='profile-chat' key={chat._id}>
+                                {/* <Link 
+                                    to={`/chat/${chat._id}`}
+                                    key={chat._id}
+                                    state={{ chat }}
+                                > */}
+                                    <p>{chat.users}</p>
+                                {/* </Link> */}
+                            </div>
+                        ))}
+                    </>
+                )}
+                {(userData.chats.length === 0) && (
+                    <>
+                        <p>No chats yet...</p>
+                    </>
+                )}
                 </div>
                 </div>
             </div>
