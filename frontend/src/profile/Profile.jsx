@@ -45,6 +45,18 @@ export default function Profile() {
         getUserProfile();
     }, [token])
 
+    useEffect(() => {
+        const getChats = async () => {
+            const localUrl = `https://localhost:3000/chats`;
+            const token = localStorage.getItem('authenticationToken')
+            try {
+
+            } catch (error) {
+                console.error(`Errors: ${error}`);
+            }
+        }
+    }, [token])
+
     const handleAddFriend = async (event) => {
         event.preventDefault();
         const stringedId = (user._id).toString();
@@ -77,12 +89,33 @@ export default function Profile() {
 
     const handleNewMessage = async (event) => {
         event.preventDefault();
+        const localUrl = `http://localhost:3000/chats/new-message`;
         const receiver = (user._id).toString();
+        const text = (event.target.text.value).toString();
         const messageData = {
             receiver: receiver,
-            content: event.target.content.value
+            text: text
         }
         console.log(messageData);
+
+        try {
+            const token = localStorage.getItem('authenticationToken') 
+            const response = await fetch(localUrl,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(messageData)
+                })
+                const data = await response.json();
+                if (response.ok) {
+                    console.log(data);
+                }
+        } catch (error) {
+            console.error("Error requesting:", error);
+        }
 
     }
 
@@ -140,10 +173,10 @@ export default function Profile() {
                 <div className="chatbox">
                     <div className="new-message">
                         <form onSubmit={handleNewMessage} className="new-message-form">
-                            <label htmlFor='content'>Message</label>
+                            <label htmlFor='text'>Message</label>
                             <input
                                 type='text'
-                                id='content'
+                                id='text'
                                 required
                             />
                             <button className="send-message" type='submit'>Send</button>
