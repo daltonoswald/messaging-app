@@ -11,6 +11,7 @@ export default function Profile() {
     const [error, setError] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userData, setUserData] = useState(null);
+    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
         const getUserProfile = async () => {
@@ -47,14 +48,31 @@ export default function Profile() {
 
     useEffect(() => {
         const getChats = async () => {
-            const localUrl = `https://localhost:3000/chats`;
+            const localUrl = `http://localhost:3000/chats/get-chats`;
             const token = localStorage.getItem('authenticationToken')
+            const receiver = (user._id).toString();
+            const messageData = {
+                receiver: receiver,
+            }
             try {
+                const response = await fetch(localUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(messageData)
+                })
+                if (response.ok) {
+                    const chatData = await response.json();
+                    console.log(chatData);
+                }
 
             } catch (error) {
                 console.error(`Errors: ${error}`);
             }
         }
+        getChats();
     }, [token])
 
     const handleAddFriend = async (event) => {

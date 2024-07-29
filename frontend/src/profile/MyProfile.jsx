@@ -141,7 +141,7 @@ export default function MyProfile() {
                                     key={chat._id}
                                     state={{ chat }}
                                 > */}
-                                    <p>{chat.users}</p>
+                                    <p>{chat.users[1].username}</p>
                                 {/* </Link> */}
                             </div>
                         ))}
