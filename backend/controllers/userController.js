@@ -134,7 +134,8 @@ exports.my_profile = asyncHandler(async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const authorizedUser = verifyToken(token);
     console.log(authorizedUser.user.username);
-    const myProfile = await User.findOne({ username: authorizedUser.user.username }).populate('username friends').select('-password').exec();
+    const myProfile = await User.findOne({ username: authorizedUser.user.username }).populate('username friends').populate({ path: "chats", populate: { path: "users", select: 'username' }}).select('-password').exec();
+    console.log(myProfile);
     res.json(myProfile);
 })
 

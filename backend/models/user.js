@@ -14,7 +14,7 @@ const UserSchema = new Schema({
         { type: Schema.Types.ObjectId, ref: "User", required: false }
     ],
     chats: [
-        {type: Schema.Types.ObjectId, ref: "Chats", required: false }
+        {type: Schema.Types.ObjectId, ref: "Chat", required: false }
     ]
 })
 
