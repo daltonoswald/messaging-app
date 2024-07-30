@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Nav from '../nav/Nav';
 import Footer from "../footer/Footer";
+import Chatbox from "./Chatbox";
+import './profile.styles.css';
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -11,7 +13,6 @@ export default function Profile() {
     const [error, setError] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userData, setUserData] = useState(null);
-    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
         const getUserProfile = async () => {
@@ -29,7 +30,7 @@ export default function Profile() {
                 })
                 if (response.ok) {
                     const userData = await response.json();
-                    console.log(userData);
+                    // console.log(userData);
                     setUserData(userData)
                     setIsLoading(false);
                 } else {
@@ -44,35 +45,6 @@ export default function Profile() {
             }
         }
         getUserProfile();
-    }, [token])
-
-    useEffect(() => {
-        const getChats = async () => {
-            const localUrl = `http://localhost:3000/chats/get-chats`;
-            const token = localStorage.getItem('authenticationToken')
-            const receiver = (user._id).toString();
-            const messageData = {
-                receiver: receiver,
-            }
-            try {
-                const response = await fetch(localUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(messageData)
-                })
-                if (response.ok) {
-                    const chatData = await response.json();
-                    console.log(chatData);
-                }
-
-            } catch (error) {
-                console.error(`Errors: ${error}`);
-            }
-        }
-        getChats();
     }, [token])
 
     const handleAddFriend = async (event) => {
@@ -103,38 +75,6 @@ export default function Profile() {
             console.error("Error requesting:", error);
             console.log(error);
         }
-    }
-
-    const handleNewMessage = async (event) => {
-        event.preventDefault();
-        const localUrl = `http://localhost:3000/chats/new-message`;
-        const receiver = (user._id).toString();
-        const text = (event.target.text.value).toString();
-        const messageData = {
-            receiver: receiver,
-            text: text
-        }
-        console.log(messageData);
-
-        try {
-            const token = localStorage.getItem('authenticationToken') 
-            const response = await fetch(localUrl,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`
-                    },
-                    body: JSON.stringify(messageData)
-                })
-                const data = await response.json();
-                if (response.ok) {
-                    console.log(data);
-                }
-        } catch (error) {
-            console.error("Error requesting:", error);
-        }
-
     }
 
     if (isLoading) return (
@@ -188,19 +128,7 @@ export default function Profile() {
                     )}
                     </div>
                 </div>
-                <div className="chatbox">
-                    <div className="new-message">
-                        <form onSubmit={handleNewMessage} className="new-message-form">
-                            <label htmlFor='text'>Message</label>
-                            <input
-                                type='text'
-                                id='text'
-                                required
-                            />
-                            <button className="send-message" type='submit'>Send</button>
-                        </form>
-                    </div>
-                </div>
+                <Chatbox user={user}/>
             </div>
             <Footer />
         </>

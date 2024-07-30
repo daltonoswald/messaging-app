@@ -33,7 +33,7 @@ export default function MyProfile() {
                 if (response.ok) {
                     const userData = await response.json();
                     setUserData(userData)
-                    console.log(userData);
+                    // console.log(userData);
                     setIsLoading(false);
                 } else {
                     console.error(error);
@@ -136,13 +136,12 @@ export default function MyProfile() {
                         <h3>My Chats</h3>
                         {userData.chats.map((chat) => (
                             <div className='profile-chat' key={chat._id}>
-                                {/* <Link 
-                                    to={`/chat/${chat._id}`}
-                                    key={chat._id}
-                                    state={{ chat }}
-                                > */}
+                                <Link 
+                                    to={`/profile/${chat.users[1]._id}`}
+                                    key={chat.users[1]._id}
+                                >
                                     <p>{chat.users[1].username}</p>
-                                {/* </Link> */}
+                                </Link>
                             </div>
                         ))}
                     </>

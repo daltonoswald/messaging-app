@@ -83,7 +83,7 @@ export default function UserList() {
                 })
                 if (response.ok) {
                     const usersData = await response.json();
-                    console.log(usersData);
+                    // console.log(usersData);
                     setUserList(usersData);
                     setIsLoading(false);
                 } else {
@@ -126,12 +126,12 @@ export default function UserList() {
                             <p>{user.first_name} {user.last_name}</p>
                             <p>{user.bio}</p>
                         </Link>
-                        <Link 
+                        {/* <Link 
                             to={`/`}
                             state={{ user }}
                             >
                                 Chat
-                            </Link>
+                            </Link> */}
                     </div>
                 ))}
             </div>

@@ -1,0 +1,54 @@
+.chatbox {
+    width: 75%;
+    height: 100%;
+    /* padding: 2%; */
+    background-color: #6ea9122e;
+}
+
+.left {
+    margin-left: 8px;
+    margin-right: auto;
+    background-color: rgb(255, 246, 223);
+    border-radius: 8px 8px 8px 0;
+}
+
+.right {
+    margin-left: auto;
+    margin-right: 8px;
+    background-color: goldenrod;
+    border-radius: 8px 8px 0 8px;   
+}
+
+.message-container {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    padding: 8px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    width: 45%;
+    border: 3px solid black;
+    text-align: left;
+}
+
+.new-message {
+    height: 10%;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid black;
+}
+
+.new-message-form {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: space-around;
+}
+
+.new-message-form > input {
+    width: 80%;
+    height: 100%;
+}
