@@ -26,7 +26,12 @@ export default function Chatbox({ user }) {
                 })
                 if (response.ok) {
                     const chatData = await response.json();
-                    setMessages(chatData.messages);
+                    console.log(chatData);
+                    if (chatData === null) {
+                        setMessages(null);
+                    } else {
+                        setMessages(chatData.messages);  
+                    }
                     setIsLoading(false);
                     console.log(chatData.messages);
                 }
@@ -72,27 +77,41 @@ export default function Chatbox({ user }) {
 
     }
 
-    if (isLoading) return (
-        <>
-            <p>Loading messages...</p>
-        </>
-    )
-    if (error) return (
-        <>
-            <p>Error, please try again later</p>
-        </>
-    )
-
+    const handleCreateChat = async (event) => {
+        event.preventDefault();
+        console.log('hey');
+    }
 
     return (
     <div className="chatbox">
         <div className="message-container">
-            {messages.map((message) => (
-                <div className={"message" + ' ' + ((message.sender._id === user._id) ? 'left' : 'right') } key={message._id}>
-                    <p>{message.text}</p>
-                </div>
-            ))}
+            {messages && (
+                <>
+                            {messages.map((message) => (
+                                <div className={"message" + ' ' + ((message.sender._id === user._id) ? 'left' : 'right') } key={message._id}>
+                                    <p>{message.text}</p>
+                                </div>
+                            ))}
+                </>
+            )}
+            {isLoading && (
+                <>
+                    <p>Loading messages...</p>
+                </>
+            )}
+            {error && (
+                    <>
+                        <p>Error, please try again later</p>
+                    </>
+            )}
+            {(messages === null) && (
+                <>
+                    <p>No messages yet</p>
+                    <button onClick={handleCreateChat} className="create-chat">Create chat</button>
+                </>
+            )}
         </div>
+        {messages && (
         <div className="new-message">
             <form onSubmit={handleNewMessage} className="new-message-form">
                 <label htmlFor='text'>Message</label>
@@ -104,6 +123,7 @@ export default function Chatbox({ user }) {
                 <button className="send-message" type='submit'>Send</button>
             </form>
         </div>
+        )}
     </div>    
     )
 

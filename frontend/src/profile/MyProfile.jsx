@@ -139,6 +139,7 @@ export default function MyProfile() {
                                 <Link 
                                     to={`/profile/${chat.users[1]._id}`}
                                     key={chat.users[1]._id}
+                                    state={chat.users[1]}
                                 >
                                     <p>{chat.users[1].username}</p>
                                 </Link>

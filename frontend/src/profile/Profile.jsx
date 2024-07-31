@@ -8,11 +8,13 @@ import './profile.styles.css';
 export default function Profile() {
     const navigate = useNavigate();
     const location = useLocation();
-    const user = location.state?.user || location.state?.friend;
+    const user = location.state?.user || location.state?.friend || location.state?.chat;
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userData, setUserData] = useState(null);
+
+    console.log(user);
 
     useEffect(() => {
         const getUserProfile = async () => {
@@ -121,7 +123,7 @@ export default function Profile() {
                     ))}
                     </>
                     )}
-                    {(userData.friends) && (
+                    {(userData.friends.length === 0) && (
                         <>
                             <p>No friends yet...</p>
                         </>
