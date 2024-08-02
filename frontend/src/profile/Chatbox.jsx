@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import './chatbox.styles.css'
 
 export default function Chatbox({ user }) {
@@ -79,12 +79,44 @@ export default function Chatbox({ user }) {
 
     const handleCreateChat = async (event) => {
         event.preventDefault();
-        console.log('hey');
+        const localUrl = `http://localhost:3000/chats/new-chat`;
+        const receiver = (user._id).toString();
+        const chatData = {
+            receiver: receiver,
+        }
+        try {
+            const token = localStorage.getItem('authenticationToken');
+            const response = await fetch(localUrl,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(chatData)
+                })
+                const data = await response.json();
+                if (response.ok) {
+                    console.log(data);
+                    window.location.reload();
+                }
+        } catch (error) {
+            console.error("Error requesting:", error);
+            console.log(error);
+        }
     }
+
+    const messagesEndRef = useRef(null);
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollTo({ top: 1000000000000000, behavior: "smooth" })
+    }
+    useEffect(() => {
+        scrollToBottom();
+    },[messages])
 
     return (
     <div className="chatbox">
-        <div className="message-container">
+        <div className="message-container" ref={messagesEndRef}>
             {messages && (
                 <>
                             {messages.map((message) => (
@@ -101,7 +133,7 @@ export default function Chatbox({ user }) {
             )}
             {error && (
                     <>
-                        <p>Error, please try again later</p>
+                        <p>Error, please try again later or create a new chat.</p>
                     </>
             )}
             {(messages === null) && (

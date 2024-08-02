@@ -8,7 +8,9 @@ import './profile.styles.css';
 export default function Profile() {
     const navigate = useNavigate();
     const location = useLocation();
-    const user = location.state?.user || location.state?.friend || location.state?.chat;
+    const user = location.state?.user || location.state?.friend || location.state[1]
+    // const user = location.state[1]
+    console.log(user);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));

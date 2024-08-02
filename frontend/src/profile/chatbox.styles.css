@@ -27,6 +27,7 @@
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    overflow-anchor: auto;
 }
 
 .message-container::-webkit-scrollbar {

@@ -33,7 +33,7 @@ export default function MyProfile() {
                 if (response.ok) {
                     const userData = await response.json();
                     setUserData(userData)
-                    // console.log(userData);
+                    console.log(userData);
                     setIsLoading(false);
                 } else {
                     console.error(error);
@@ -139,9 +139,11 @@ export default function MyProfile() {
                                 <Link 
                                     to={`/profile/${chat.users[1]._id}`}
                                     key={chat.users[1]._id}
-                                    state={chat.users[1]}
+                                    state={chat.users}
                                 >
-                                    <p>{chat.users[1].username}</p>
+                                    {chat.users.filter((user) => user.username !== userData.username).map((user) => (
+                                        <p>{user.username}</p>
+                                    ))}
                                 </Link>
                             </div>
                         ))}
