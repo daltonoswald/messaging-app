@@ -12,4 +12,6 @@ router.post('/new-message', chat_controller.new_message)
 
 router.post('/get-chats', chat_controller.get_chats);
 
+router.post('/new-chat', chat_controller.new_chat);
+
 module.exports = router;

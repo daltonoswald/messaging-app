@@ -25,11 +25,46 @@ exports.get_chats = asyncHandler(async (req, res, next) => {
     const receiver = req.body.receiver;
     const authorizedUser = verifyToken(token);
     const tokenUserId = authorizedUser.user._id;
+    console.log('hey');
 
     // const allMessages = await Chat.findOne({ users: { $all: [tokenUserId, receiver]} }).select( "-password -friends").populate('username').exec();
     const allMessages = await Chat.findOne({ users: { $all: [tokenUserId, receiver]} }).populate({ path: "messages", populate: { path: "sender receiver", select: 'username' }}).exec();
-    console.log(allMessages);
+    // console.log(allMessages);
     res.json(allMessages);
+})
+
+exports.new_chat = asyncHandler(async (req, res, next) => {
+
+    const errors = validationResult(req);
+    const token = req.headers.authorization.split(' ')[1];
+    const authorizedUser = verifyToken(token);
+    const tokenUserId = authorizedUser.user._id;
+
+    const currentChat = await Chat.findOne({ users: { $all: [tokenUserId, req.body.receiver]} }).exec();
+    console.log(`The currentChat is ${currentChat}`);
+
+    if (!currentChat) {
+        const chat = new Chat({
+            users: [tokenUserId, req.body.receiver],
+            messages: [],
+            created: Date.now(),
+        })
+        
+        if (!errors.isEmpty()) {
+            const errorsMessages = errors.array().map((error) => error.msg);
+            res.json({ error: errorsMessages });
+        } else {
+            await chat.save();
+            let update = await User.findByIdAndUpdate(tokenUserId,
+                { $push: { "chats": chat._id }},
+                { upsert: true, new: true });
+            let updateOther = await User.findByIdAndUpdate(req.body.receiver,
+                { $push: { "chats": chat._id }},
+                { upsert: true, new: true });
+            res.json({ message: "New chat created" });
+        }
+    }
+
 })
 
 exports.new_message = [
