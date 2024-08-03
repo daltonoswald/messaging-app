@@ -27,7 +27,19 @@ a:visited {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+    overflow: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-anchor: auto;
+    background-color: #6fa91273;
 }
+
+.content::-webkit-scrollbar {
+    display: none;
+}
+
+
+
 
 /* #root {
     min-height: 100vh;

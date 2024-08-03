@@ -3,6 +3,34 @@
     border-right: 2px solid black;
     padding-left: 8px;
     height: 100%;
-    /* background-color: rgb(255, 246, 223); */
-    background-color: #6ea9122e;
+}
+
+.profile-info-top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.remove-friend-button,
+.add-friend-button {
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid goldenrod;
+    border-radius: 16px;
+    background-color: rgb(255, 246, 223);
+}
+
+.remove-friend-button:hover {
+    background-color: crimson;
+}
+
+.add-friend-button:hover {
+    transform: scale(1.1);
+    background-color: #a1d0f9;
+}
+
+.remove-friend-icon,
+.add-friend-icon {
+    height: 100%;
+    width: 100%;
 }

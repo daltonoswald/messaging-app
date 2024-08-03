@@ -3,6 +3,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import Nav from '../nav/Nav';
 import './myProfile.styles.css'
 import Footer from "../footer/Footer";
+import friendRemove from '../assets/icons/friend-remove.svg';
 
 export default function MyProfile() {
     const navigate = useNavigate();
@@ -12,8 +13,6 @@ export default function MyProfile() {
     const [error, setError] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userData, setUserData] = useState(null);
-
-    // console.log(loggedInUser);
 
     useEffect(() => {
         const getUserProfile = async () => {
@@ -116,7 +115,9 @@ export default function MyProfile() {
                                 >
                                     {/* <img src={friend.profile_picture}></img> */}
                                     <p>{friend.username}</p>
-                                    <button id={friend._id} onClick={handleRemoveFriend}>Remove Friend</button>
+                                    <button className="remove-friend-button" id={friend._id} onClick={handleRemoveFriend}>
+                                        <img className="remove-friend-icon" id={friend._id} src={friendRemove} alt='remove friend' />
+                                    </button>
                             </Link>
                         </div>
                     ))}
