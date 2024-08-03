@@ -22,4 +22,6 @@ router.put('/add-friend/:userid', user_controller.add_friend);
 
 router.put('/remove-friend/:userid', user_controller.remove_friend);
 
+router.get('/my-friends', user_controller.find_friends);
+
 module.exports = router;

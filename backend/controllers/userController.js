@@ -133,9 +133,8 @@ exports.user_list = asyncHandler(async (req, res, next) => {
 exports.my_profile = asyncHandler(async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const authorizedUser = verifyToken(token);
-    console.log(authorizedUser.user.username);
+    console.log(authorizedUser);
     const myProfile = await User.findOne({ username: authorizedUser.user.username }).populate('username friends').populate({ path: "chats", populate: { path: "users", select: 'username' }}).select('-password').exec();
-    console.log(myProfile);
     res.json(myProfile);
 })
 
@@ -173,7 +172,8 @@ exports.add_friend = asyncHandler(async (req, res , next) => {
         } else {
             let result = await User.findByIdAndUpdate(tokenUserId,
                 { $push: {"friends": newFriend._id }}, 
-                { upsert: true, new: true })
+                { upsert: true, new: true });
+                res.json( {message: "Added friend"} )
         }
     }
 })
@@ -195,4 +195,14 @@ exports.remove_friend = asyncHandler(async (req, res, next) => {
             { upsert: true, new: true });
             res.json( {message: "Removed friend"} )
     }
+})
+
+exports.find_friends = asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const token = req.headers.authorization.split(' ')[1];
+    const authorizedUser = verifyToken(token);
+
+    const myFriends = await User.findOne({ username: authorizedUser.user.username }).select( 'friends' ).exec();
+    res.json(myFriends);
+    console.log(myFriends);
 })
