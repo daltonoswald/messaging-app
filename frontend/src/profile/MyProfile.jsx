@@ -32,7 +32,6 @@ export default function MyProfile() {
                 if (response.ok) {
                     const userData = await response.json();
                     setUserData(userData)
-                    console.log(userData);
                     setIsLoading(false);
                 } else {
                     console.error(error);

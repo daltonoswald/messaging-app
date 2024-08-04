@@ -17,6 +17,7 @@ export default function Profile() {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userData, setUserData] = useState(null);
     const [myFriends, setMyFriends] = useState(null);
+    const [friendsListLoading, setFriendsListLoading] = useState(true);
 
     useEffect(() => {
         const findMyFriends = async () => {
@@ -35,6 +36,7 @@ export default function Profile() {
                     const myData = await response.json();
                     console.log(myData);
                     setMyFriends(myData)
+                    setFriendsListLoading(false);
                 } else {
                     console.error(error);
                     setError(true);
@@ -151,8 +153,6 @@ export default function Profile() {
         </>
     )
 
-    // console.log(loggedInUser.friends._id);
-
     return (
         <>
             <Nav />
@@ -160,16 +160,20 @@ export default function Profile() {
                 <div className="profile-info">
                     <div className="profile-info-top">
                         <h1>{userData.username}</h1>
-                        {(myFriends.friends.includes(userData._id) && (
-                            <button className="remove-friend-button" onClick={handleRemoveFriend}>
-                               <img className="remove-friend-icon" id={userData._id} src={friendRemove} alt='remove friend' /> 
-                            </button>
-                        ))}
-                        {(!myFriends.friends.includes(userData._id) && (
-                            <button className="add-friend-button" onClick={handleAddFriend}>
-                                <img className="add-friend-icon" id={userData._id} src={friendAdd} alt='add friend' />
-                            </button>
-                        ))}
+                        {(!friendsListLoading) && (
+                            <>
+                                {(myFriends.friends.includes(userData._id) && (
+                                    <button className="remove-friend-button" onClick={handleRemoveFriend}>
+                                        <img className="remove-friend-icon" id={userData._id} src={friendRemove} alt='remove friend' /> 
+                                    </button>
+                                ))}
+                                {(!myFriends.friends.includes(userData._id) && (
+                                    <button className="add-friend-button" onClick={handleAddFriend}>
+                                        <img className="add-friend-icon" id={userData._id} src={friendAdd} alt='add friend' />
+                                    </button>
+                                ))}
+                            </>
+                        )}
                     </div>
                     <div className="profile-info-middle">
                         <h3>{userData.first_name} {userData.last_name}</h3>

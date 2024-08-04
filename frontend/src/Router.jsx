@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Homepage from './Homepage.jsx';
+import ErrorPage from './errorpage/ErrorPage.jsx'
 import LogIn from './login/LogIn.jsx';
 import SignUp from './signup/SignUp.jsx';
 import Dashboard from './dashboard/Dashboard.jsx';
@@ -12,6 +13,7 @@ export default function Router() {
         {
             path: '/',
             element: <Homepage />,
+            errorElement: <ErrorPage />,
         },
         {
             path: '/log-in',

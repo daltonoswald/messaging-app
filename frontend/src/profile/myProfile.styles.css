@@ -7,6 +7,19 @@
     height: 100%;
 }
 
+.friends-list,
+.my-chats {
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-anchor: auto;
+}
+
+.friends-list::-webkit-scrollbar,
+.my-chats::-webkit-scrollbar {
+    display: none;
+}
+
 .friend {
     border-bottom: 2px solid goldenrod;
     padding: 1vh 0;

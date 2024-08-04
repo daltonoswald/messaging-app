@@ -7,7 +7,7 @@ export default function Nav() {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
-    const token = localStorage.getItem('authenticationToken')
+    const token = localStorage.getItem('authenticationToken');
 
     function logout() {
         localStorage.removeItem('authenticationToken');

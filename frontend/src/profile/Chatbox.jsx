@@ -7,6 +7,8 @@ export default function Chatbox({ user }) {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [messageImage, setMessageImage] = useState(null);
+
     useEffect(() => {
         const getChats = async () => {
             const localUrl = `http://localhost:3000/chats/get-chats`;
@@ -26,14 +28,12 @@ export default function Chatbox({ user }) {
                 })
                 if (response.ok) {
                     const chatData = await response.json();
-                    console.log(chatData);
                     if (chatData === null) {
                         setMessages(null);
                     } else {
                         setMessages(chatData.messages);  
                     }
                     setIsLoading(false);
-                    console.log(chatData.messages);
                 }
 
             } catch (error) {
@@ -74,8 +74,35 @@ export default function Chatbox({ user }) {
         } catch (error) {
             console.error("Error requesting:", error);
         }
-
     }
+
+    // const handleNewImageMessage = async (event) => {
+    //     event.preventDefault();
+    //     const localUrl = `http://localhost:3000/chats/new-chat-image`;
+    //     const receiver = (user._id).toString();
+
+    //     const messageData = new FormData();
+    //     messageData.append('file', messageImage);
+
+    //     console.log(messageData);
+    //     console.log(messageImage);
+    //     try {
+    //         const token = localStorage.getItem('authenticationToken');
+    //         const response = await fetch(localUrl, {
+    //             method: 'POST',
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`
+    //             },
+    //             body: messageData,
+    //         })
+    //         const data = await response.json();
+    //         if (response.ok) {
+    //             console.log(data);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error requesting:", error);
+    //     }
+    // }
 
     const handleCreateChat = async (event) => {
         event.preventDefault();
@@ -102,7 +129,6 @@ export default function Chatbox({ user }) {
                 }
         } catch (error) {
             console.error("Error requesting:", error);
-            console.log(error);
         }
     }
 
@@ -145,7 +171,9 @@ export default function Chatbox({ user }) {
         </div>
         {messages && (
         <div className="new-message">
-            <form onSubmit={handleNewMessage} className="new-message-form">
+            <form onSubmit={handleNewMessage} className="new-message-form" encType='multipart/form-data'>
+                {/* <button onClick={handleNewImageMessage}>Upload Image</button>
+                <input onChange={(e) => {setMessageImage(e.target.files[0])}} type='file' name='message-image' /> */}
                 <label htmlFor='text'>Message</label>
                 <input
                     type='text'
