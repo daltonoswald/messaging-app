@@ -24,7 +24,7 @@
 
 .sign-up-left {
     width: 60vw;
-    background-color: rgb(255, 246, 223);
+    background-color: rgb(247 234 198);
     border-right: 1px solid black;
 }
 
@@ -63,5 +63,5 @@
 }
 
 .sign-up-form > .submit-button {
-    background-color: rgb(255, 246, 223) !important;
+    background-color: rgb(247 234 198) !important;
 }

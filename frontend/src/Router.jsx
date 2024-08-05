@@ -12,7 +12,8 @@ export default function Router() {
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <Homepage />,
+            // element: <Homepage />,
+            element: <Dashboard />,
             errorElement: <ErrorPage />,
         },
         {
@@ -23,10 +24,10 @@ export default function Router() {
             path: '/sign-up',
             element: <SignUp />
         },
-        {
-            path: '/dashboard',
-            element: <Dashboard />
-        },
+        // {
+        //     path: '/dashboard',
+        //     element: <Dashboard />
+        // },
         {
             path: '/profile/:postid',
             element: <Profile />

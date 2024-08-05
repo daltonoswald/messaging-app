@@ -16,6 +16,13 @@ export default function Nav() {
     }
 
     useEffect(() => {
+        if (!localStorage.getItem('authenticationToken')) {
+            localStorage.removeItem('authenticationToken');
+            localStorage.removeItem('username');
+        }
+    }, [token])
+
+    useEffect(() => {
         const myProfile = async () => {
             const localUrl = `http://localhost:3000/users/my-profile`;
             try {

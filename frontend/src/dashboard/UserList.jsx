@@ -120,6 +120,7 @@ export default function UserList() {
                             to={`/profile/${user._id}`}
                             key={user._id}
                             state={{ user }}
+                            className="user-link"
                         >
                             <img src={user.profile_picture}></img>
                             <p>{user.username}</p>

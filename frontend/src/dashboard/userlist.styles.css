@@ -6,7 +6,6 @@
     height: 100%;
     gap: 20px;
     padding: 20px;
-    background-color: #6ea9122e;
     overflow: hidden;
     overflow-y: scroll;
     -ms-overflow-style: none;
@@ -21,6 +20,10 @@
     background-color: rgb(255, 246, 223);
     border: 2px solid goldenrod;
     padding: 4px;
+}
+
+.user-link {
+    text-decoration: none !important;
 }
 
 .user:hover {

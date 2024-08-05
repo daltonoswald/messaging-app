@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { format } from 'date-fns';
 import Nav from '../nav/Nav';
 import Footer from "../footer/Footer";
 import Chatbox from "./Chatbox";
@@ -16,6 +17,7 @@ export default function Profile() {
     const [error, setError] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userData, setUserData] = useState(null);
+    const [formattedDate, setFormattedDate] = useState(null);
     const [myFriends, setMyFriends] = useState(null);
     const [friendsListLoading, setFriendsListLoading] = useState(true);
 
@@ -65,8 +67,8 @@ export default function Profile() {
                 })
                 if (response.ok) {
                     const userData = await response.json();
-                    // console.log(userData);
                     setUserData(userData)
+                    setFormattedDate(format(userData.date_joined, 'MM-dd-yyyy'))
                     setIsLoading(false);
                 } else {
                     console.error(error);
@@ -177,6 +179,8 @@ export default function Profile() {
                     </div>
                     <div className="profile-info-middle">
                         <h3>{userData.first_name} {userData.last_name}</h3>
+                        <p>{userData.bio}</p>
+                        <p>Member since: {formattedDate}</p>
                     </div>
                     <div className="profile-info-bottom">
                         <div className="profile-info-bottom-header">

@@ -5,18 +5,72 @@
     border-right: 2px solid goldenrod;
     padding: 1vh 1vw;
     height: 100%;
+    width: 25%;
+
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-anchor: auto;
 }
 
-.friends-list,
-.my-chats {
+.my-profile-hero::-webkit-scrollbar {
+    display: none;
+}
+
+.my-profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.my-profile-header > h1 {
+    font-size: 24px
+}
+
+.edit-profile-button {
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid goldenrod;
+    border-radius: 16px;
+    background-color: rgb(255, 246, 223);
+}
+
+.edit-profile-button:hover {
+    transition: 0.9s;
+    transform: scaleX(-1);
+}
+
+.edit-profile-button:not(:hover) {
+    transition: 0.9s;
+    transform: scaleX(1);
+}
+
+.edit-profile-icon {
+    height: 100%;
+    width: 100%;
+}
+
+.friends-list {
+    border-top: 2px solid goldenrod;
+
+    height: 50%;
+}
+
+.friends-list-friends {
+    height: 80%;
+}
+
+.friends-list-friends,
+.my-chats-list {
+    /* height: 40%; */
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
     overflow-anchor: auto;
 }
 
-.friends-list::-webkit-scrollbar,
-.my-chats::-webkit-scrollbar {
+.friends-list-friends::-webkit-scrollbar,
+.my-chats-list::-webkit-scrollbar {
     display: none;
 }
 
@@ -49,5 +103,10 @@
 .remove-friend-icon {
     height: 100%;
     width: 100%;
+}
+
+.my-chats {
+    padding-bottom: 5vh;
+    border-top: 2px solid goldenrod;
 }
 

@@ -111,12 +111,12 @@ export default function SignUp() {
                                 name='bio'
                             />
                             <button className="submit-button" type='submit'>Sign up</button>
-                        </form>
-                        {message && (
+                            {message && (
                             <div className='log-in-message'>
                                 <p>{message}</p>
                             </div>
                         )}
+                        </form>
                     </div>
                     <div className="sign-up-right">
                         <div className='log-in-right-content'>

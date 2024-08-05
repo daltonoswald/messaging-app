@@ -31,7 +31,8 @@ a:visited {
     -ms-overflow-style: none;
     scrollbar-width: none;
     overflow-anchor: auto;
-    background-color: #6fa91273;
+    /* background-color: #6fa91273; */
+    background-color: rgb(247 234 198);
 }
 
 .content::-webkit-scrollbar {
