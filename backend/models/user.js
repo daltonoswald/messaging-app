@@ -9,7 +9,7 @@ const UserSchema = new Schema({
     password: { type: String, required: true, minLength: 8 },
     profile_picture: { type: String, required: false },
     bio: {type: String, required: true, maxLength: 100, required: false, default: "Hi, I just joined!" },
-    date_joined: { type: String, default: Date.now() },
+    date_joined: { type: Date, default: Date.now() },
     friends: [
         { type: Schema.Types.ObjectId, ref: "User", required: false }
     ],

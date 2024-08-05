@@ -133,7 +133,6 @@ exports.user_list = asyncHandler(async (req, res, next) => {
 exports.my_profile = asyncHandler(async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const authorizedUser = verifyToken(token);
-    console.log(authorizedUser);
     const myProfile = await User.findOne({ username: authorizedUser.user.username }).populate('username friends').populate({ path: "chats", populate: { path: "users", select: 'username' }}).select('-password').exec();
     res.json(myProfile);
 })
@@ -206,3 +205,47 @@ exports.find_friends = asyncHandler(async (req, res, next) => {
     res.json(myFriends);
     console.log(myFriends);
 })
+
+exports.update_user = [
+    body('first_name', 'First Name must not be empty.')
+        .trim()
+        .isLength({ min: 1, max: 50 })
+        .escape(),
+    body('last_name', 'Last Name must not be empty.')
+        .trim()
+        .isLength({ min: 1, max: 50 })
+        .escape(),
+    body('bio')
+        .trim()
+        .escape(),
+
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+        const token = req.headers.authorization.split(' ')[1];
+        const authorizedUser = verifyToken(token);
+        const tokenUserId = authorizedUser.user._id;
+        console.log(tokenUserId);
+        console.log(req.body.first_name);
+        console.log(req.body.bio);
+
+        const user = await User.findById(tokenUserId).exec();
+
+        const updatedUser = new User({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            bio: req.body.bio,
+        });
+        console.log(updatedUser);
+
+        if (!errors.isEmpty()) {
+            res.json({ message: "Something is wrong",
+            user: updatedUser,
+            errors: errors.array(),
+        })
+        return;
+        } else {
+            await User.findByIdAndUpdate(tokenUserId, { first_name: req.body.first_name, last_name: req.body.last_name, bio: req.body.bio }, {});
+            return res.json({ message: updatedUser });
+        }
+    })
+]
