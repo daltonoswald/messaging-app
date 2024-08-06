@@ -14,9 +14,6 @@ const { generateToken, verifyToken } = require('../middleware/middleware');
 exports.user_list = asyncHandler(async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1]
     const authorizedUser = verifyToken(token);
-    // console.log(authorizedUser.user.username);
-
-    // const allUsers = await User.find({}, "username, profile_picture").populate('username').exec();
     const allUsers = await User.find({ username: { $ne: authorizedUser.user.username } }).select( "-password -chats -friends").populate('username').exec();
     res.json(allUsers);
 })
@@ -26,11 +23,7 @@ exports.get_chats = asyncHandler(async (req, res, next) => {
     const receiver = req.body.receiver;
     const authorizedUser = verifyToken(token);
     const tokenUserId = authorizedUser.user._id;
-    console.log('hey');
-
-    // const allMessages = await Chat.findOne({ users: { $all: [tokenUserId, receiver]} }).select( "-password -friends").populate('username').exec();
     const allMessages = await Chat.findOne({ users: { $all: [tokenUserId, receiver]} }).populate({ path: "messages", populate: { path: "sender receiver", select: 'username' }}).exec();
-    // console.log(allMessages);
     res.json(allMessages);
 })
 
@@ -42,7 +35,6 @@ exports.new_chat = asyncHandler(async (req, res, next) => {
     const tokenUserId = authorizedUser.user._id;
 
     const currentChat = await Chat.findOne({ users: { $all: [tokenUserId, req.body.receiver]} }).exec();
-    console.log(`The currentChat is ${currentChat}`);
 
     if (!currentChat) {
         const chat = new Chat({
@@ -80,10 +72,8 @@ exports.new_message = [
             const token = req.headers.authorization.split(' ')[1];
             const authorizedUser = verifyToken(token);
             const tokenUserId = authorizedUser.user._id;
-            // const currentChat = req.body.chatid
 
             const currentChat = await Chat.findOne({ users: { $all: [tokenUserId, req.body.receiver]} }).exec();
-            console.log(`The currentChat is ${currentChat}`);
 
             if (!currentChat) {
                 const chat = new Chat({
@@ -103,11 +93,7 @@ exports.new_message = [
                     res.json({ message: "New chat created" });
                 }
             }
-
-            // console.log(`text is ${req.body.text}`);
-            // console.log(`sender is ${tokenUserId}`);
-            // console.log(`receiver is ${req.body.receiver}`);
-
+            
             const newMessage = new Message({
                 sender: tokenUserId,
                 receiver: req.body.receiver,

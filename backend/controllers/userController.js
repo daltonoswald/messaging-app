@@ -24,7 +24,6 @@ exports.log_in = asyncHandler(async (req, res, next) => {
             if (!isMatch) {
                 res.status(401).json({ message: "Incorrect password." });
             } else {
-                console.log(user.username);
                 res.json({ message: 'user logged in successfully', token, user });
             }
         });
@@ -68,10 +67,8 @@ exports.sign_up = [
         .trim()
         .custom((value, { req }) => {
             if (value !== req.body.password) {
-                console.log("does not match")
                 return false
             }
-            console.log("matches")
             return true
         }),
     body('profile_picture', 'Profile image is required')
@@ -123,7 +120,6 @@ exports.sign_up = [
 exports.user_list = asyncHandler(async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1]
     const authorizedUser = verifyToken(token);
-    console.log(authorizedUser.user.username);
 
     // const allUsers = await User.find({}, "username, profile_picture").populate('username').exec();
     const allUsers = await User.find({ username: { $ne: authorizedUser.user.username } }).select( "-password -chats -friends").populate('username').exec();
@@ -155,8 +151,6 @@ exports.add_friend = asyncHandler(async (req, res , next) => {
     const authorizedUser = verifyToken(token);
     const tokenUserId = authorizedUser.user._id;
     const newFriend = await User.findById(req.params.userid);
-    console.log(newFriend);
-    console.log(tokenUserId);
 
     if (!errors.isEmpty()) {
         const errorsMessages = errors.array().map((error) => error.msg);
@@ -165,7 +159,6 @@ exports.add_friend = asyncHandler(async (req, res , next) => {
         const alreadyFriends = await User.findOne({
             _id: tokenUserId
         })
-        console.log(alreadyFriends.friends.includes(newFriend._id));
         if (alreadyFriends.friends.includes(newFriend._id)) {
             res.status(409).json({ message: "User is already your friend." });
         } else {
@@ -183,7 +176,6 @@ exports.remove_friend = asyncHandler(async (req, res, next) => {
     const authorizedUser = verifyToken(token);
     const tokenUserId = authorizedUser.user._id;
     const removedFriend = await User.findById(req.params.userid);
-    console.log(removedFriend);
     
     if (!errors.isEmpty()) {
         const errorsMessages = errors.array().map((error) => error.msg);
@@ -203,7 +195,6 @@ exports.find_friends = asyncHandler(async (req, res, next) => {
 
     const myFriends = await User.findOne({ username: authorizedUser.user.username }).select( 'friends' ).exec();
     res.json(myFriends);
-    console.log(myFriends);
 })
 
 exports.update_user = [
@@ -224,18 +215,14 @@ exports.update_user = [
         const token = req.headers.authorization.split(' ')[1];
         const authorizedUser = verifyToken(token);
         const tokenUserId = authorizedUser.user._id;
-        console.log(tokenUserId);
-        console.log(req.body.first_name);
-        console.log(req.body.bio);
 
-        const user = await User.findById(tokenUserId).exec();
+        // const user = await User.findById(tokenUserId).exec();
 
         const updatedUser = new User({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             bio: req.body.bio,
         });
-        console.log(updatedUser);
 
         if (!errors.isEmpty()) {
             res.json({ message: "Something is wrong",
