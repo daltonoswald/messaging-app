@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Loading from "../loading/Loading";
 import './userlist.styles.css'
 
 
@@ -102,7 +103,7 @@ export default function UserList() {
 
     if (isLoading) return (
         <>
-            <p>Loading users...</p>
+            <p>Loading...</p>
         </>
     )
     if (error) return (

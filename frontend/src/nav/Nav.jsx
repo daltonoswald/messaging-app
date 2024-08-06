@@ -54,7 +54,7 @@ export default function Nav() {
 
     if (isLoading) return (
         <>
-            <p>Loading...</p>
+            <p className='nav-loading'>Loading...</p>
         </>
     )
 

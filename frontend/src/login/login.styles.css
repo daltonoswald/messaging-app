@@ -37,6 +37,7 @@
     border-radius: 50px;
     border: 3px solid black;
     box-shadow: 2px 2px 4px black;
+    width: 50%;
 }
 
 .welcome-back {

@@ -1,5 +1,4 @@
-.nav,
-.nav-loading {
+.fake-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,17 +7,4 @@
     padding: 0 2.5%;
     border-bottom: 2px solid black;
     background-color: rgb(255, 246, 223);
-}
-
-.nav-title {
-    color: black;
-}
-
-.nav-title-right {
-    color: rgb(218, 165, 32)
-}
-
-.nav-right {
-    display: flex;
-    gap: 16px;
 }

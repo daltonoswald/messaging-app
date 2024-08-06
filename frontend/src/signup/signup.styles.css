@@ -7,10 +7,8 @@
 }
 
 .sign-up-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     gap: 8px;
+    width: 50%;
 }
 
 .sign-up-left,

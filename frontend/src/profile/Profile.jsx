@@ -7,6 +7,7 @@ import Chatbox from "./Chatbox";
 import friendRemove from '../assets/icons/friend-remove.svg';
 import friendAdd from '../assets/icons/friend-add.svg';
 import './profile.styles.css';
+import Loading from "../loading/Loading";
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -146,7 +147,7 @@ export default function Profile() {
 
     if (isLoading) return (
         <>
-            <p>Loading profile</p>
+            <Loading />
         </>
     )
     if (error) return (

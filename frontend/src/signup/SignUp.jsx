@@ -26,7 +26,7 @@ export default function SignUp() {
             username: event.target.username.value,
             password: event.target.password.value,
             confirm_password: event.target.confirm_password.value,
-            profile_picture: event.target.profile_picture.value,
+            // profile_picture: event.target.profile_picture.value,
             bio: event.target.bio.value,
         };
         try {
@@ -98,12 +98,12 @@ export default function SignUp() {
                                 minLength={8}
                                 required
                             />
-                            <label htmlFor="profile_picture">Profile Picture</label>
+                            {/* <label htmlFor="profile_picture">Profile Picture</label>
                             <input
                                 type='file'
                                 id='profile_picture'
                                 name='profile_picture'
-                            />
+                            /> */}
                             <label htmlFor='bio'>About Me</label>
                             <input 
                                 type='text'

@@ -6,6 +6,7 @@ import './myProfile.styles.css'
 import Footer from "../footer/Footer";
 import friendRemove from '../assets/icons/friend-remove.svg';
 import editIcon from '../assets/icons/edit.svg';
+import Loading from "../loading/Loading";
 
 export default function MyProfile() {
     const navigate = useNavigate();
@@ -135,7 +136,7 @@ export default function MyProfile() {
 
     if (isLoading) return (
         <>
-            <p>Loading profile</p>
+            <Loading />
         </>
     )
     if (error) return (
@@ -223,7 +224,8 @@ export default function MyProfile() {
                 {openEdit && (
                     <div className="my-profile-edit">
                         <form onSubmit={handleProfileEdit} className="edit-profile-form">
-                            <label htmlFor="first_name">First Name:</label>
+                            <div className="edit-profile-title">Edit Profile</div>
+                            <label htmlFor="first_name">First Name</label>
                             <input
                                 type='text'
                                 id='first_name'
@@ -234,7 +236,7 @@ export default function MyProfile() {
                                 onChange={handleFirstName}
                                 required
                             />
-                            <label htmlFor="last_name">Last Name:</label>
+                            <label htmlFor="last_name">Last Name</label>
                             <input
                                 type='text'
                                 id='last_name'
@@ -245,7 +247,7 @@ export default function MyProfile() {
                                 onChange={handleLastName}
                                 required
                             />
-                            <label htmlFor="bio">Bio: </label>
+                            <label htmlFor="bio">About Me </label>
                             <input 
                                 type='text'
                                 id='bio'

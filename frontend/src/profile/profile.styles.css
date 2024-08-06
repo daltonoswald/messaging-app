@@ -11,6 +11,12 @@
     align-items: center;
 }
 
+.profile-info-middle,
+.profile-info-bottom {
+    border-top: 2px solid goldenrod;
+    padding: 5vh 0;
+}
+
 .remove-friend-button,
 .add-friend-button {
     height: 2rem;

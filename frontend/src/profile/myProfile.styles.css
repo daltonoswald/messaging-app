@@ -37,12 +37,7 @@
 
 .edit-profile-button:hover {
     transition: 0.9s;
-    transform: scaleX(-1);
-}
-
-.edit-profile-button:not(:hover) {
-    transition: 0.9s;
-    transform: scaleX(1);
+    transform: rotate(360deg);
 }
 
 .edit-profile-icon {
@@ -53,16 +48,15 @@
 .friends-list {
     border-top: 2px solid goldenrod;
 
-    height: 50%;
+    /* height: 50%; */
 }
 
-.friends-list-friends {
+/* .friends-list-friends {
     height: 80%;
-}
+} */
 
-.friends-list-friends,
+/* .friends-list-friends,
 .my-chats-list {
-    /* height: 40%; */
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -71,6 +65,19 @@
 
 .friends-list-friends::-webkit-scrollbar,
 .my-chats-list::-webkit-scrollbar {
+    display: none;
+} */
+
+.friends-list,
+.my-chats {
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-anchor: auto;
+}
+
+.friends-list::-webkit-scrollbar,
+.my-chats::-webkit-scrollbar {
     display: none;
 }
 
@@ -110,3 +117,47 @@
     border-top: 2px solid goldenrod;
 }
 
+.my-profile-edit {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-profile-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: goldenrod;
+    width: 50%;
+    margin: 0 auto;
+    padding: 10vh 3vh;
+    gap: 8px;
+    border-radius: 50px;
+    border: 3px solid black;
+    box-shadow: 2px 2px 4px black;
+}
+
+.edit-profile-title {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.edit-profile-form > input,
+.edit-profile-form > label {
+    width: 60%;
+}
+
+.edit-profile-form > button {
+    border-radius: 25px;
+    border: 3px solid black;
+    padding: 16px 52px;
+    background-color: rgb(247 234 198);
+    text-shadow: 0 0 BLACK;
+    box-shadow: 2px 2px 4px black;
+    font-size: 16px;
+    text-decoration: none;
+}
