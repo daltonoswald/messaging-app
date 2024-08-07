@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const compression = require('compression');
+const helmet = require('helmet');
 
 const cors = require('cors');
 require('dotenv').config();
@@ -24,7 +26,8 @@ async function main() {
 
 app.use(cors({
   origin: [
-    "http://localhost:5173", 
+    "http://localhost:5173",
+    "https://daltonoswald-messaging-app.netlify.app", 
     ],
   methods: ['GET', 'PUT', 'POST', 'DELETE'],
   optionsSuccessStatus: 204,
@@ -39,6 +42,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(compression());
+app.use(
+  helmet.contentSecurityPolicy({
+    directive: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    }
+  })
+)
+
+const RateLimit = require('express-rate-limit');
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+})
+
+app.use(limiter);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
