@@ -25,12 +25,12 @@ export default function MyProfile() {
 
     useEffect(() => {
         const getUserProfile = async () => {
-            // const localUrl = `http://localhost:3000/users/profile/${loggedInUser._id}`;
-            const localUrl = `http://localhost:3000/users/my-profile`;
+            // const localUrl = `http://localhost:3000/users/my-profile`;
+            const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/my-profile`;
 
             const token = localStorage.getItem('authenticationToken')
             try {
-                const response = await fetch(localUrl, {
+                const response = await fetch(devUrl, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -61,7 +61,8 @@ export default function MyProfile() {
     const handleRemoveFriend = async (event) => {
         event.preventDefault();
         const stringedId = userData._id.toString();
-        const localUrl = `http://localhost:3000/users/remove-friend/${event.target.id}`
+        // const localUrl = `http://localhost:3000/users/remove-friend/${event.target.id}`
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/remove-friend/${event.target.id}`;
         const removeData = {
             text: stringedId
         }
@@ -69,7 +70,7 @@ export default function MyProfile() {
 
         try {
             const token = localStorage.getItem('authenticationToken');
-            const response = await fetch(localUrl,
+            const response = await fetch(devUrl,
                 {
                     method: "PUT",
                     headers: {
@@ -98,7 +99,8 @@ export default function MyProfile() {
 
     const handleProfileEdit = async (event) => {
         event.preventDefault();
-        const localUrl = `http://localhost:3000/users/update-user`
+        // const localUrl = `http://localhost:3000/users/update-user`
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/update-user`;
         const updatedData = {
             first_name: firstName,
             last_name: lastName,
@@ -106,7 +108,7 @@ export default function MyProfile() {
         };
         try {
             const token = localStorage.getItem('authenticationToken');
-            const response = await fetch (localUrl, {
+            const response = await fetch (devUrl, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

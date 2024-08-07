@@ -18,7 +18,8 @@ export default function LogIn() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const localUrl = `http://localhost:3000/users/log-in`;
+        // const localUrl = `http://localhost:3000/users/log-in`;
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/log-in`;
 
         const formData = {
             username: event.target.username.value,
@@ -26,7 +27,7 @@ export default function LogIn() {
         };
 
         try {
-            const response = await fetch(localUrl, {
+            const response = await fetch(devUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -70,11 +70,12 @@ export default function UserList() {
 
     useEffect(() => {
         const allUsers = async () => {
-            const localUrl = `http://localhost:3000/users/user-list`;
+            // const localUrl = `http://localhost:3000/users/user-list`;
+            const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/user-list`;
 
             const token = localStorage.getItem('authenticationToken')
             try {
-                const response = await fetch(localUrl, {
+                const response = await fetch(devUrl, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

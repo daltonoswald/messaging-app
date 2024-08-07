@@ -24,10 +24,11 @@ export default function Profile() {
 
     useEffect(() => {
         const findMyFriends = async () => {
-            const localUrl = `http://localhost:3000/users/my-friends`;
+            // const localUrl = `http://localhost:3000/users/my-friends`;
+            const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/my-friends`;
             const token = localStorage.getItem('authenticationToken')
             try {
-                const response = await fetch(localUrl, {
+                const response = await fetch(devUrl, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -54,11 +55,12 @@ export default function Profile() {
 
     useEffect(() => {
         const getUserProfile = async () => {
-            const localUrl = `http://localhost:3000/users/profile/${user._id}`;
+            // const localUrl = `http://localhost:3000/users/profile/${user._id}`;
+            const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/profile/${user._id}`;
 
             const token = localStorage.getItem('authenticationToken')
             try {
-                const response = await fetch(localUrl, {
+                const response = await fetch(devUrl, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -88,14 +90,15 @@ export default function Profile() {
     const handleAddFriend = async (event) => {
         event.preventDefault();
         const stringedId = (user._id).toString();
-        const localUrl = `http://localhost:3000/users/add-friend/${user._id}`;
+        // const localUrl = `http://localhost:3000/users/add-friend/${user._id}`;
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/add-friend/${user._id}`;
         const friendData = {
             text: stringedId
         }
 
         try {
             const token = localStorage.getItem('authenticationToken')
-            const response = await fetch(localUrl, 
+            const response = await fetch(devUrl, 
             {
                 method: "PUT",
                 headers: {
@@ -117,7 +120,8 @@ export default function Profile() {
     const handleRemoveFriend = async (event) => {
         event.preventDefault();
         const stringedId = userData._id.toString();
-        const localUrl = `http://localhost:3000/users/remove-friend/${user._id}`
+        // const localUrl = `http://localhost:3000/users/remove-friend/${user._id}`
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/remove-friend/${user._id}`;
         const removeData = {
             text: stringedId
         }
@@ -125,7 +129,7 @@ export default function Profile() {
 
         try {
             const token = localStorage.getItem('authenticationToken');
-            const response = await fetch(localUrl,
+            const response = await fetch(devUrl,
                 {
                     method: "PUT",
                     headers: {

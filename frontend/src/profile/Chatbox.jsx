@@ -11,14 +11,15 @@ export default function Chatbox({ user }) {
 
     useEffect(() => {
         const getChats = async () => {
-            const localUrl = `http://localhost:3000/chats/get-chats`;
+            // const localUrl = `http://localhost:3000/chats/get-chats`;
+            const devUrl = `https://daltonoswald-messaging-app.up.railway.app/chats/get-chats`;
             const token = localStorage.getItem('authenticationToken')
             const receiver = (user._id).toString();
             const messageData = {
                 receiver: receiver,
             }
             try {
-                const response = await fetch(localUrl, {
+                const response = await fetch(devUrl, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -46,7 +47,8 @@ export default function Chatbox({ user }) {
 
     const handleNewMessage = async (event) => {
         event.preventDefault();
-        const localUrl = `http://localhost:3000/chats/new-message`;
+        // const localUrl = `http://localhost:3000/chats/new-message`;
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/chats/new-message`;
         const receiver = (user._id).toString();
         const text = (event.target.text.value).toString();
         const messageData = {
@@ -57,7 +59,7 @@ export default function Chatbox({ user }) {
 
         try {
             const token = localStorage.getItem('authenticationToken') 
-            const response = await fetch(localUrl,
+            const response = await fetch(devUrl,
                 {
                     method: "POST",
                     headers: {
@@ -106,14 +108,15 @@ export default function Chatbox({ user }) {
 
     const handleCreateChat = async (event) => {
         event.preventDefault();
-        const localUrl = `http://localhost:3000/chats/new-chat`;
+        // const localUrl = `http://localhost:3000/chats/new-chat`;
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/chat/new-chat`;
         const receiver = (user._id).toString();
         const chatData = {
             receiver: receiver,
         }
         try {
             const token = localStorage.getItem('authenticationToken');
-            const response = await fetch(localUrl,
+            const response = await fetch(devUrl,
                 {
                     method: "POST",
                     headers: {

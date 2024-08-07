@@ -24,9 +24,10 @@ export default function Nav() {
 
     useEffect(() => {
         const myProfile = async () => {
-            const localUrl = `http://localhost:3000/users/my-profile`;
+            // const localUrl = `http://localhost:3000/users/my-profile`;
+            const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/my-profile`;
             try {
-                const response = await fetch(localUrl, {
+                const response = await fetch(devUrl, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

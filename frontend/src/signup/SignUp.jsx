@@ -18,7 +18,8 @@ export default function SignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const localUrl = `http://localhost:3000/users/sign-up`;
+        // const localUrl = `http://localhost:3000/users/sign-up`;
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/sign-up`;
 
         const formData = {
             first_name: event.target.first_name.value,
@@ -30,7 +31,7 @@ export default function SignUp() {
             bio: event.target.bio.value,
         };
         try {
-            const response = await fetch(localUrl, {
+            const response = await fetch(devUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
