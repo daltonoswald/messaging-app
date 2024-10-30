@@ -85,7 +85,6 @@ export default function UserList() {
                 })
                 if (response.ok) {
                     const usersData = await response.json();
-                    // console.log(usersData);
                     setUserList(usersData);
                     setIsLoading(false);
                 } else {

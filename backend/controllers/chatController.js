@@ -124,16 +124,3 @@ exports.new_message = [
         }
     }
 ]
-
-// exports.new_chat_image = [
-//     async (req, res, next) => {
-//         console.log('POST request recieved on server to /new-chat-message')
-//         console.log(req.body.receiver);
-//         res.json({ message: "POST request recieved on server to /new-chat-message", image: req.body });
-
-//         const errors = validationResult(req);
-//         const token = req.headers.authorization.split(' ')[1];
-//         const authorizedUser = verifyToken(token);
-//         const tokenUserId = authorizedUser.user._id;
-//     }
-// ]

@@ -8,7 +8,6 @@ export default function Dashboard() {
     const navigate = useNavigate();
     useEffect(() => {
         if (!localStorage.getItem('authenticationToken')) {
-            console.log("");
             navigate('/log-in');
         }
     })
