@@ -11,7 +11,6 @@ export default function SignUp() {
 
     useEffect(() => {
         if (localStorage.getItem('authenticationToken')) {
-            console.log("Already signed in");
             navigate('/');
         }
     })
@@ -42,7 +41,6 @@ export default function SignUp() {
             const data = await response.json();
 
             if (response.ok) {
-                console.log(response)
                 navigate('/log-in');
             } else {
                 console.error("Error requesting authentication:", data.message);

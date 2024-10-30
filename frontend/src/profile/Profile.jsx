@@ -38,7 +38,6 @@ export default function Profile() {
                 })
                 if (response.ok) {
                     const myData = await response.json();
-                    console.log(myData);
                     setMyFriends(myData)
                     setFriendsListLoading(false);
                 } else {
@@ -125,7 +124,6 @@ export default function Profile() {
         const removeData = {
             text: stringedId
         }
-        console.log(removeData)
 
         try {
             const token = localStorage.getItem('authenticationToken');
@@ -139,7 +137,6 @@ export default function Profile() {
                     body: JSON.stringify(removeData)
                 })
                 const data = await response.json();
-                console.log(response);
                 if (response.ok) {
                     window.location.reload();
                 }

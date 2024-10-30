@@ -11,7 +11,6 @@ export default function LogIn() {
 
     useEffect(() => {
         if (localStorage.getItem('authenticationToken')) {
-            console.log('Already signed in')
             navigate('/');
         }
     })

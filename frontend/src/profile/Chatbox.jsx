@@ -55,7 +55,6 @@ export default function Chatbox({ user }) {
             receiver: receiver,
             text: text
         }
-        console.log(messageData);
 
         try {
             const token = localStorage.getItem('authenticationToken') 
@@ -70,41 +69,12 @@ export default function Chatbox({ user }) {
                 })
                 const data = await response.json();
                 if (response.ok) {
-                    console.log(data);
                     window.location.reload();
                 }
         } catch (error) {
             console.error("Error requesting:", error);
         }
     }
-
-    // const handleNewImageMessage = async (event) => {
-    //     event.preventDefault();
-    //     const localUrl = `http://localhost:3000/chats/new-chat-image`;
-    //     const receiver = (user._id).toString();
-
-    //     const messageData = new FormData();
-    //     messageData.append('file', messageImage);
-
-    //     console.log(messageData);
-    //     console.log(messageImage);
-    //     try {
-    //         const token = localStorage.getItem('authenticationToken');
-    //         const response = await fetch(localUrl, {
-    //             method: 'POST',
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             },
-    //             body: messageData,
-    //         })
-    //         const data = await response.json();
-    //         if (response.ok) {
-    //             console.log(data);
-    //         }
-    //     } catch (error) {
-    //         console.error("Error requesting:", error);
-    //     }
-    // }
 
     const handleCreateChat = async (event) => {
         event.preventDefault();
@@ -127,7 +97,6 @@ export default function Chatbox({ user }) {
                 })
                 const data = await response.json();
                 if (response.ok) {
-                    console.log(data);
                     window.location.reload();
                 }
         } catch (error) {
