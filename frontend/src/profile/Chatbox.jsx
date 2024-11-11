@@ -79,7 +79,7 @@ export default function Chatbox({ user }) {
     const handleCreateChat = async (event) => {
         event.preventDefault();
         // const localUrl = `http://localhost:3000/chats/new-chat`;
-        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/chat/new-chat`;
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/chats/new-chat`;
         const receiver = (user._id).toString();
         const chatData = {
             receiver: receiver,

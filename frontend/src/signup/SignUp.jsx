@@ -51,12 +51,59 @@ export default function SignUp() {
         }
     }
 
+    const handleGuestSubmit = async (event) => {
+        event.preventDefault();
+        // const localUrl = `http://localhost:3000/users/log-in`;
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/log-in`;
+
+        const formData = {
+            username: 'Guest',
+            password: 'minecraft12'
+        };
+
+        try {
+            const response = await fetch(devUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+                mode: 'cors',
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                const token = data.token;
+                const user = data.user;
+                localStorage.setItem('authenticationToken', token);
+                localStorage.setItem('username', user.username);
+                navigate('/');
+            } else {
+                console.error("Error during authentication:", data.message);
+                setMessage(data.message);
+            }
+        } catch (error) {
+            console.error("Error requesting authentication:", error);
+            console.log(error);
+            // setMessage(error);
+        }
+    }
+
     return (
         <>
             <Nav />
             <div className='content'>
                 <div className="sign-up-hero">
                     <div className="sign-up-left">
+                        <div className='log-in-left-content'>
+                            <div className='new-here'>Already have an account?</div>
+                            <div className='sign-up-text'>Log in now and get back to chatting!</div>
+                            <Link className='link-log-in' to='/log-in'>Log in</Link>
+                            <button className='guest-submit' onClick={handleGuestSubmit}>Sign in as Guest</button>
+                        </div>
+                    </div>
+                    <div className="sign-up-right">
                         <form onSubmit={handleSubmit} className="sign-up-form sign-up-left-content">
                             <h3 className="sign-up-form-title">Sign up</h3>
                             <label htmlFor='first_name'>First Name</label>
@@ -116,13 +163,6 @@ export default function SignUp() {
                             </div>
                         )}
                         </form>
-                    </div>
-                    <div className="sign-up-right">
-                        <div className='log-in-right-content'>
-                            <div className='new-here'>Already have an account?</div>
-                            <div className='sign-up-text'>Log in now and get back to chatting!</div>
-                            <Link className='link-log-in' to='/log-in'>Log in</Link>
-                        </div>
                     </div>
                 </div>
             </div>

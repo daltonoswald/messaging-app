@@ -54,6 +54,45 @@ export default function LogIn() {
         }
     }
 
+    const handleGuestSubmit = async (event) => {
+        event.preventDefault();
+        // const localUrl = `http://localhost:3000/users/log-in`;
+        const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/log-in`;
+
+        const formData = {
+            username: 'Guest',
+            password: 'minecraft12'
+        };
+
+        try {
+            const response = await fetch(devUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+                mode: 'cors',
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                const token = data.token;
+                const user = data.user;
+                localStorage.setItem('authenticationToken', token);
+                localStorage.setItem('username', user.username);
+                navigate('/');
+            } else {
+                console.error("Error during authentication:", data.message);
+                setMessage(data.message);
+            }
+        } catch (error) {
+            console.error("Error requesting authentication:", error);
+            console.log(error);
+            // setMessage(error);
+        }
+    }
+
     return (
         <>
             <Nav />
@@ -79,6 +118,7 @@ export default function LogIn() {
                                 />
                                 <button className='submit-button' type='submit'>Log in</button>
                             </form>
+                            <button className='guest-submit' onClick={handleGuestSubmit}>Sign in as Guest</button>
                             {message && (
                             <div className='log-in-message'>
                                 <p>{message}</p>

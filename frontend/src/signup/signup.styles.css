@@ -21,13 +21,13 @@
 }
 
 .sign-up-left {
-    width: 60vw;
+    width: 50vw;
     background-color: rgb(247 234 198);
     border-right: 1px solid black;
 }
 
 .sign-up-right {
-    width: 40vw;
+    width: 50vw;
     background-color: goldenrod;
     border-left: 1px solid black;
 }
@@ -41,7 +41,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background-color: goldenrod;
+    background-color: rgb(247 234 198);
     padding: 10vh 3vh;
     border-radius: 50px;
     border: 3px solid black;
@@ -53,7 +53,7 @@
     border-radius: 25px;
     border: 3px solid black;
     padding: 16px 52px;
-    background-color: goldenrod;
+    background-color: rgb(247 234 198);
     text-shadow: 0 0 BLACK;
     box-shadow: 2px 2px 4px black;
 
@@ -67,5 +67,5 @@
 }
 
 .sign-up-form > .submit-button {
-    background-color: rgb(247 234 198) !important;
+    background-color: goldenrod !important;
 }

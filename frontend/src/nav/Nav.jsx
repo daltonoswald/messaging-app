@@ -50,7 +50,9 @@ export default function Nav() {
                 console.error(`Errors: ${error}`);
             }
         }
-        myProfile();
+        if (token) {
+            myProfile();  
+        }
     }, [token])
 
     if (isLoading) return (
