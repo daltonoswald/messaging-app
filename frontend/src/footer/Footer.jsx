@@ -19,7 +19,7 @@ export default function Footer() {
                     <a href='https://github.com/daltonoswald/messaging-app' className="footer-github">
                         <img className="icon" src={githubIcon} alt="github icon" />
                     </a>
-                    <a href='https://linkedin.com/in/dalton-oswald-8aa955148' className="footer-linkedin">
+                    <a href='https://linkedin.com/in/daltonoswald' className="footer-linkedin">
                         <img className="icon" src={linkedinIcon} alt="linkedin icon" />
                     </a>
             </div>
