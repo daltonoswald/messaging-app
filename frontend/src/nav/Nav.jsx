@@ -22,44 +22,45 @@ export default function Nav() {
         }
     }, [token])
 
-    useEffect(() => {
-        const myProfile = async () => {
-            // const localUrl = `http://localhost:3000/users/my-profile`;
-            const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/my-profile`;
-            try {
-                const response = await fetch(devUrl, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Username": `${localStorage.getItem('username')}`,
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-                if (response.ok) {
-                    const myData = await response.json();
-                    setLoggedInUser(myData)
-                    setIsLoading(false);
-                    localStorage.setItem("username", myData.username);
-                    localStorage.setItem('myId', myData._id);
-                } else {
-                    console.error(error);
-                    setIsLoading(false);
-                    setError(true);
-                }
-            } catch (error) {
-                console.error(`Errors: ${error}`);
-            }
-        }
-        if (token) {
-            myProfile();  
-        }
-    }, [token])
+    // useEffect(() => {
+    //     const myProfile = async () => {
+    //         // const localUrl = `http://localhost:3000/users/my-profile`;
+    //         const devUrl = `https://daltonoswald-messaging-app.up.railway.app/users/my-profile`;
+    //         try {
+    //             const response = await fetch(devUrl, {
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     "Username": `${localStorage.getItem('username')}`,
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             })
+    //             if (response.ok) {
+    //                 const myData = await response.json();
+    //                 setLoggedInUser(myData)
+    //                 console.log(myData)
+    //                 setIsLoading(false);
+    //                 localStorage.setItem("username", myData.username);
+    //                 localStorage.setItem('myId', myData._id);
+    //             } else {
+    //                 console.error(error);
+    //                 setIsLoading(false);
+    //                 setError(true);
+    //             }
+    //         } catch (error) {
+    //             console.error(`Errors: ${error}`);
+    //         }
+    //     }
+    //     if (token) {
+    //         myProfile();  
+    //     }
+    // }, [token])
 
-    if (isLoading) return (
-        <>
-            <p className='nav-loading'>Loading...</p>
-        </>
-    )
+    // if (isLoading) return (
+    //     <>
+    //         <p className='nav-loading'>Loading...</p>
+    //     </>
+    // )
 
     return (
         <div className='nav'>
@@ -69,13 +70,15 @@ export default function Nav() {
                 </Link>
             </div>
             <div className='nav-right'>
-                {(localStorage.getItem('authenticationToken') && !isLoading) && (
+                {(localStorage.getItem('authenticationToken')) && (
                     <>
                         <Link
                             to={`/my-profile/`}
-                            key={ loggedInUser._id }
+                            // key={ loggedInUser._id }
+                            key={localStorage.getItem('myId')}
                             state={{loggedInUser}}
-                        >{loggedInUser.username}</Link>
+                        // >{loggedInUser.username}</Link>
+                        >{localStorage.getItem('username')}</Link>
                         <button onClick={logout}>Log out</button>
                     </>
                 )}

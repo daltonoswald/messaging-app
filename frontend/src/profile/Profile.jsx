@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { format } from 'date-fns';
 import Nav from '../nav/Nav';
 import Footer from "../footer/Footer";
@@ -112,7 +112,6 @@ export default function Profile() {
             }
         } catch (error) {
             console.error("Error requesting:", error);
-            console.log(error);
         }
     }
 
@@ -142,7 +141,6 @@ export default function Profile() {
                 }
         } catch (error) {
             console.error("Error requesting:", error);
-            console.log(error);
         }
     }
 
@@ -186,20 +184,20 @@ export default function Profile() {
                     </div>
                     <div className="profile-info-bottom">
                         <div className="profile-info-bottom-header">
-                            {userData.username}'s friends
+                            {userData.username}&apos;s friends
                         </div>
                     {userData.friends && (
                         <>
                     {userData.friends.map((friend) => (
                         <div className="friend" key={friend._id}>
-                            {/* <Link
-                                to={`/profile/${user._id}`}
-                                key={user._id}
+                            <Link
+                                to={`/profile/${friend._id}`}
+                                key={friend._id}
                                 state={{ user }}
-                                > */}
+                                >{friend.username}
                                     {/* <img src={friend.profile_picture}></img> */}
-                                    <p>{friend.username}</p>
-                            {/* </Link> */}
+                                    {/* <p>{friend.username}</p> */}
+                            </Link>
                         </div>
                     ))}
                     </>

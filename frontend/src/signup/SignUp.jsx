@@ -77,6 +77,7 @@ export default function SignUp() {
                 const token = data.token;
                 const user = data.user;
                 localStorage.setItem('authenticationToken', token);
+                localStorage.setItem('myId', user._id)
                 localStorage.setItem('username', user.username);
                 navigate('/');
             } else {

@@ -41,7 +41,6 @@ export default function MyProfile() {
                 if (response.ok) {
                     const userData = await response.json();
                     setUserData(userData)
-                    console.log(userData);
                     setFormattedDate(format(userData.date_joined, 'MM-dd-yyyy'))
                     setIsLoading(false);
                 } else {
@@ -66,7 +65,6 @@ export default function MyProfile() {
         const removeData = {
             text: stringedId
         }
-        console.log(removeData)
 
         try {
             const token = localStorage.getItem('authenticationToken');
@@ -80,13 +78,11 @@ export default function MyProfile() {
                     body: JSON.stringify(removeData)
                 })
                 const data = await response.json();
-                console.log(response);
                 if (response.ok) {
                     window.location.reload();
                 }
         } catch (error) {
             console.error("Error requesting:", error);
-            console.log(error);
         }
     }
 

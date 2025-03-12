@@ -41,6 +41,7 @@ export default function LogIn() {
                 const token = data.token;
                 const user = data.user;
                 localStorage.setItem('authenticationToken', token);
+                localStorage.setItem('myId', user._id)
                 localStorage.setItem('username', user.username);
                 navigate('/');
             } else {
@@ -80,6 +81,7 @@ export default function LogIn() {
                 const token = data.token;
                 const user = data.user;
                 localStorage.setItem('authenticationToken', token);
+                localStorage.setItem('myId', user._id)
                 localStorage.setItem('username', user.username);
                 navigate('/');
             } else {
@@ -88,7 +90,6 @@ export default function LogIn() {
             }
         } catch (error) {
             console.error("Error requesting authentication:", error);
-            console.log(error);
             // setMessage(error);
         }
     }
